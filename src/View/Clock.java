@@ -26,6 +26,7 @@ public class Clock extends Label{
     private Day day = Day.Monday;
     boolean running=true;
     private Thread clockThread;
+    private int millisSpeed = 1000;
 
 
     Task <Void> task = new Task<Void>() {
@@ -35,7 +36,7 @@ public class Clock extends Label{
 
                 updateMessage(hours+":00"+"\n"  + day );
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(millisSpeed);
                 } catch (InterruptedException ie) {
                     System.out.print(ie);
                 }

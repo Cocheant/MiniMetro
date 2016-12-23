@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 /**
  * Created by Toinecoch on 19/12/16.
  */
-public class StationTriangle extends EquilateralTriangle  {
+public class StationTriangle extends EquilateralTriangle implements Stationable  {
 
     private double xCenter, yCenter, size;
     private Color color;

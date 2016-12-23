@@ -32,4 +32,14 @@ public class Cross extends Polygon {
         this.size = size;
 
     }
+    public double getCenterX(){
+        return xCenter;
+    }
+    public double getCenterY(){
+        return yCenter;
+    }
+    public double getSize(){
+        return size;
+    }
+
 }

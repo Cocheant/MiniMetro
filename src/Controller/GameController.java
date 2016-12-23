@@ -32,6 +32,9 @@ public class GameController extends Application {
 
         // Test
 
+        final double widthWindow = 1024;
+        final double heightWindow = 800;
+
         double vitesseTrain = 0.13;
         double xCenterTri =800;
         double yCenterTri = 400;
@@ -39,31 +42,50 @@ public class GameController extends Application {
 
         double xCenterCir = 120;
         double yCenterCir = 120;
-        double radius = 20;
+        double diameter = 30;
 
-
-        Clock clock = new Clock();
-
-        StationTriangle st= new StationTriangle(400,100 , 60);
-        st.setEvents(Color.ORANGE);
-        st.setColor(Color.BLACK);
-
-        StationTriangle st2= new StationTriangle(xCenterTri,yCenterTri , 60);
-        st2.setEvents(Color.BLUE);
-        st2.setColor(Color.BLACK);
-
-        Canvas canvas = new Canvas( 1024, 1024 );
-        Color colorLine = Color.ORANGE;
 
         theStage.setTitle( "Mini Metro" );
         Group root = new Group();
+        Canvas canvas = new Canvas( widthWindow, heightWindow );
+
+        Clock clock = new Clock();
+        clock.setPosition(widthWindow - 150, 5);
+        clock.start();
+
+        Diamond diamond = new Diamond(300 , 300, 30);
+        diamond.setFill(Color.TRANSPARENT);
+        diamond.setStroke(Color.BLACK);
+        diamond.setStrokeWidth(3);
+
+        Lozenge lozenge = new Lozenge(300 , 500, 30);
+        lozenge.setFill(Color.TRANSPARENT);
+        lozenge.setStroke(Color.BLACK);
+        lozenge.setStrokeWidth(3);
+
+        Square square = new Square(600 , 500, 30);
+        square.setFill(Color.TRANSPARENT);
+        square.setStroke(Color.BLACK);
+        square.setStrokeWidth(3);
+
+        StationTriangle st= new StationTriangle(400,100 , 30);
+        st.setEvents(Color.ORANGE);
+        st.setColor(Color.BLACK);
+
+        StationTriangle st2= new StationTriangle(xCenterTri,yCenterTri , 30);
+        st2.setEvents(Color.BLUE);
+        st2.setColor(Color.BLACK);
+
+        Color colorLine = Color.ORANGE;
 
         Cross cross = new Cross(800, 600 , 30);
+        cross.setFill(Color.TRANSPARENT);
+        cross.setStroke(Color.BLACK);
+        cross.setStrokeWidth(3);
 
-        Circle circle = new Circle(xCenterCir,yCenterCir,radius);
+        Circle circle = new Circle(xCenterCir,yCenterCir,diameter/2);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.TRANSPARENT);
-        //To set the width of the stroke using setStrokeWidth()
         circle.setStrokeWidth(3);
 
 
@@ -115,11 +137,6 @@ public class GameController extends Application {
         //pathTransition.play();
 
         MetroLine l = new MetroLine(Color.BLUE);
-        Square s = new Square(600 , 500, 30);
-
-
-
-
 
         circle.setOnDragDetected(new EventHandler <MouseEvent>() {
             public void handle(MouseEvent event) {
@@ -266,9 +283,8 @@ public class GameController extends Application {
             }
         });
 
-        clock.setPosition(1024 - 100, 5);
-        clock.start();
-        root.getChildren().addAll( canvas, st2, circle, st, train1, s, cross ,clock);
+
+        root.getChildren().addAll( canvas, st2, circle, st, train1, square, cross ,clock , diamond, lozenge);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
