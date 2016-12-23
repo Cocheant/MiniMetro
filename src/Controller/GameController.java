@@ -42,6 +42,8 @@ public class GameController extends Application {
         double radius = 20;
 
 
+        Clock clock = new Clock();
+
         StationTriangle st= new StationTriangle(400,100 , 60);
         st.setEvents(Color.ORANGE);
         st.setColor(Color.BLACK);
@@ -50,18 +52,17 @@ public class GameController extends Application {
         st2.setEvents(Color.BLUE);
         st2.setColor(Color.BLACK);
 
-
         Canvas canvas = new Canvas( 1024, 1024 );
         Color colorLine = Color.ORANGE;
 
         theStage.setTitle( "Mini Metro" );
         Group root = new Group();
 
+        Cross cross = new Cross(800, 600 , 30);
 
         Circle circle = new Circle(xCenterCir,yCenterCir,radius);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.TRANSPARENT);
-
         //To set the width of the stroke using setStrokeWidth()
         circle.setStrokeWidth(3);
 
@@ -265,37 +266,12 @@ public class GameController extends Application {
             }
         });
 
-
-
-
-        root.getChildren().addAll( canvas, st2, circle, st, train1, s );
-
-
+        clock.setPosition(1024 - 100, 5);
+        clock.start();
+        root.getChildren().addAll( canvas, st2, circle, st, train1, s, cross ,clock);
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        /*Image earth = new Image( "earth.png" );
-        Image sun   = new Image( "sun.png" );
-        Image space = new Image( "space.png" );*/
-
-        //final long startNanoTime = System.nanoTime();
-
-
-        /*
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
-
-                double t = (currentNanoTime - startNanoTime) / 100000000.0;
-
-                // background image clears canvas
-
-                circle.setCenterX(t);
-                circle.setCenterY(t);
-
-            }
-        }.start();*/
 
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
