@@ -23,17 +23,19 @@ import java.time.LocalTime;
 public class Clock extends Label{
 
     private int hours = 0;
+    private Day day = Day.Monday;
     boolean running=true;
     private Thread clockThread;
 
 
     Task <Void> task = new Task<Void>() {
         @Override public Void call() throws InterruptedException {
-            // "message2" time consuming method (this message will be seen).
+
             while(running) {
-                updateMessage(hours+":00");
+
+                updateMessage(hours+":00"+"\n"  + day );
                 try {
-                    Thread.sleep(15000);
+                    Thread.sleep(100);
                 } catch (InterruptedException ie) {
                     System.out.print(ie);
                 }
@@ -41,25 +43,19 @@ public class Clock extends Label{
                     hours++;
                 } else if (hours >= 23) {
                     hours = 0;
+                    if(day.ordinal()<7) {
+                        day = day.next();
+                    }
+                    else if(day.ordinal()>=7){
+                        day = Day.Monday;
+                    }
                 }
-
-                // this will never be actually be seen because we also set a message
-                // in the task::setOnSucceeded handler.
 
             }
 
             return null;
         }
     };
-
-    Runnable update = new Runnable() {
-        @Override
-        public void run() {
-
-
-        }
-    };
-
 
     public Clock(){
         super(""+0);
