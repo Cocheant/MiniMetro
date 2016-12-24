@@ -22,4 +22,13 @@ public abstract class TransportObject extends PassengerContainer {
     public TransportObject(Coordinates co, int id){
         super(co, id);
     }
+
+    @Override
+    public void addPassenger(Passenger p) throws Exception {
+        if(this.passengers.size()<capacity){
+            passengers.add(p);
+        }else{
+            throw new Exception("Transport Object Full");
+        }
+    }
 }

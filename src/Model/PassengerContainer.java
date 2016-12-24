@@ -4,13 +4,13 @@ import java.util.ArrayList;
 /**
  * Created by hugo on 12/23/2016.
  */
-public class PassengerContainer {
+public abstract class PassengerContainer {
 
     private Coordinates co;
 
     private int id;
 
-    private ArrayList<Passenger> passengers;
+    protected ArrayList<Passenger> passengers;
 
     /**
      * Default constructor
@@ -31,4 +31,6 @@ public class PassengerContainer {
         this.id = id;
         this.passengers = new ArrayList<Passenger>();
     }
+
+    public abstract void addPassenger(Passenger p) throws Exception;
 }

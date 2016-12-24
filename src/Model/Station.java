@@ -27,4 +27,14 @@ public class Station extends PassengerContainer {
         super(co, id);
         this.sh = sh;
     }
+
+
+    public void addPassenger(Passenger p) throws Exception {
+        passengers.add(p);
+
+        if(capacity<passengers.size()){
+            throw new Exception("Station Full");
+        }
+    }
+
 }

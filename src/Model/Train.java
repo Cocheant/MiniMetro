@@ -20,4 +20,5 @@ public class Train extends TransportObject {
     public Train(Coordinates co, int id){
         super(co, id);
     }
+
 }
