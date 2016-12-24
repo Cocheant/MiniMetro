@@ -104,7 +104,7 @@ public class GameController extends Application {
         final Rectangle train = new Rectangle (xCenterCir, yCenterCir, 30, 20);
         train.setArcHeight(5);
         train.setArcWidth(5);
-        train.setFill(colorLine);
+        train.setFill(Color.ORANGE);
 
         final Rectangle wagon = new Rectangle (train.getX()+35, yCenterCir, 30, 20);
         wagon.setArcHeight(5);
@@ -114,6 +114,7 @@ public class GameController extends Application {
 
 
         final View.Train train1 = new View.Train(200,200, 30);
+        train1.setColor(Color.ORANGE);
 
         Group transport = new Group(train/*,wagon*/);
 
