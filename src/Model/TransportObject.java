@@ -5,13 +5,13 @@ package Model;
  */
 public abstract class TransportObject extends PassengerContainer {
 
-    private static int capacity = 6;
+    private static final int capacity = 6;
 
     /**
      * Default constructor
      */
     public TransportObject(){
-
+        super();
     }
 
     /**

@@ -17,7 +17,8 @@ public class PassengerContainer {
      */
     public PassengerContainer(){
         this.co = new Coordinates();
-        id = 0;
+        this.id = 0;
+        this.passengers = new ArrayList<Passenger>();
     }
 
     /**
@@ -28,5 +29,6 @@ public class PassengerContainer {
     public PassengerContainer(Coordinates co, int id){
         this.co = co;
         this.id = id;
+        this.passengers = new ArrayList<Passenger>();
     }
 }
