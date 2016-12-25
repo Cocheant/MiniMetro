@@ -41,9 +41,10 @@ public class StationTriangle extends EquilateralTriangle implements Stationable 
 
 
 
+
     public void setColor(Color c){
         color = c;
-        this.setStroke(c);
+        this.setStroke(color);
         this.setFill(Color.TRANSPARENT);
         this.setStrokeWidth(4);
     }
@@ -72,7 +73,7 @@ public class StationTriangle extends EquilateralTriangle implements Stationable 
                 /* show to the user that it is an actual gesture target */
                 if (event.getGestureSource() != this &&
                         event.getDragboard().hasString()) {
-                    setFill(c);
+                    setFill(color);
                 }
 
                 event.consume();

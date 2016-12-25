@@ -46,51 +46,51 @@ public class GameController extends Application {
 
 
         theStage.setTitle( "Mini Metro" );
-        Group root = new Group();
-        Canvas canvas = new Canvas( widthWindow, heightWindow );
+        final Group root = new Group();
+        final Canvas canvas = new Canvas( widthWindow, heightWindow );
 
-        Clock clock = new Clock();
+        final Clock clock = new Clock();
         clock.setPosition(widthWindow - 150, 5);
         clock.start();
 
-        Diamond diamond = new Diamond(300 , 300, 30);
+        final Diamond diamond = new Diamond(300 , 300, 30);
         diamond.setFill(Color.TRANSPARENT);
         diamond.setStroke(Color.BLACK);
         diamond.setStrokeWidth(3);
 
-        Lozenge lozenge = new Lozenge(300 , 500, 30);
+        final Lozenge lozenge = new Lozenge(300 , 500, 30);
         lozenge.setFill(Color.TRANSPARENT);
         lozenge.setStroke(Color.BLACK);
         lozenge.setStrokeWidth(3);
 
-        Square square = new Square(600 , 500, 30);
+        final Square square = new Square(600 , 500, 30);
         square.setFill(Color.TRANSPARENT);
         square.setStroke(Color.BLACK);
         square.setStrokeWidth(3);
 
-        StationTriangle st= new StationTriangle(400,100 , 30);
+        final StationTriangle st= new StationTriangle(400,100 , 30);
         st.setEvents(Color.ORANGE);
         st.setColor(Color.BLACK);
 
-        StationTriangle st2= new StationTriangle(xCenterTri,yCenterTri , 30);
+        final StationTriangle st2= new StationTriangle(xCenterTri,yCenterTri , 30);
         st2.setEvents(Color.BLUE);
         st2.setColor(Color.BLACK);
 
         Color colorLine = Color.ORANGE;
 
-        Cross cross = new Cross(800, 600 , 30);
+        final Cross cross = new Cross(800, 600 , 30);
         cross.setFill(Color.TRANSPARENT);
         cross.setStroke(Color.BLACK);
         cross.setStrokeWidth(3);
 
-        Circle circle = new Circle(xCenterCir,yCenterCir,diameter/2);
+        final Circle circle = new Circle(xCenterCir,yCenterCir,diameter/2);
         circle.setStroke(Color.BLACK);
         circle.setFill(Color.TRANSPARENT);
         circle.setStrokeWidth(3);
 
 
 
-        Polygon triangle = new Polygon();
+        final Polygon triangle = new Polygon();
         triangle.getPoints().setAll(
                 xCenterTri, yCenterTri- (sqrt(3/2)*tailleTri/2),
                 xCenterTri- (tailleTri/2), yCenterTri+ (sqrt(3/2)*tailleTri/2),
