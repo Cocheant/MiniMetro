@@ -35,9 +35,11 @@ public class Line {
      * @param id the id of the line
      * @param col the color of the line
      */
-    public Line(int id, Color col){
+    public Line(int id, Color col, ArrayList<Station> stops){
         this.id = id;
         this.col = col;
+        this.stops = stops;
+        this.trains = new ArrayList<Train>();
     }
 
     /**
