@@ -1,6 +1,8 @@
 package View;
 
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.input.DragEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
@@ -10,33 +12,38 @@ import javafx.scene.shape.Shape;
 /**
  * Created by Toinecoch on 20/12/16.
  */
-public class Station extends Canvas{
+public class Station<T extends Shape>{
 
-    // TODO create methods that stations have to implement, static args like defaut station size
+    T t;
 
-    Model.Shape shape;
-    Object view;
+    double xCenter,yCenter;
 
-    public Station(EquilateralTriangle t){
-            super(t.getCenterX()+t.getSize(),t.getCenterY()+t.getSize());
-            view = t;
-            shape = Model.Shape.Triangle;
 
-    }
-    public Station(Square s){
-        view = s;
-        shape = Model.Shape.Square;
-    }
+    EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
+        @Override
+        public void handle(DragEvent event) {
 
-    public Station(Circle c){
-        view = c;
-        shape = Model.Shape.Circle;
+        }
+    };
+
+
+    public Station(T t){
+        this.t = t;
+        xCenter = (t.getLayoutBounds().getMaxX() + t.getLayoutBounds().getMinX())/2;
+        yCenter = (t.getLayoutBounds().getMaxY() + t.getLayoutBounds().getMinY())/2;
 
     }
 
-    public Object getShape(){
-        return view;
+    public void setType(T t) { this.t = t; }
+    public T getType() { return t; }
+    public double getCenterX(){
+        return xCenter;
     }
-
+    public double getCenterY(){
+        return yCenter;
+    }
+    public String toString(){
+        return t.toString();
+    }
 
 }

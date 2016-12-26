@@ -1,21 +1,11 @@
 package View;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.beans.InvalidationListener;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.util.Duration;
 
-import java.time.LocalTime;
+import javafx.scene.text.Font;
+
+
 
 /**
  * Created by hugo on 12/20/2016.
@@ -30,7 +20,9 @@ public class Clock extends Label{
 
 
     Task <Void> task = new Task<Void>() {
-        @Override public Void call() throws InterruptedException {
+
+        @Override
+        public Void call() throws InterruptedException {
 
             while(running) {
 
@@ -86,8 +78,11 @@ public class Clock extends Label{
 
 
     public void start(){
+        running = true;
+        this.textProperty().bind(task.messageProperty());
         clockThread.start();
     }
+
     public void stop(){
         running = false;
         clockThread.interrupt();
@@ -96,7 +91,6 @@ public class Clock extends Label{
 
     public boolean status(){
         return clockThread.isAlive()&&this.textProperty().isBound();
-
     }
 
     public void setPosition(double x, double y){

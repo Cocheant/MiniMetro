@@ -19,6 +19,16 @@ public class EquilateralTriangle extends Polygon {
         this.xCenter = xCenter;
         this.yCenter = yCenter;
         this.size = size;
+        System.out.println(toString());
+    }
+    public EquilateralTriangle(EquilateralTriangle t){
+
+        super(t.getCenterX(), t.getCenterY()- (sqrt(3/2)*t.getSize()/2),
+                t.getCenterX()- (t.getSize()/2), t.getCenterY()+ (sqrt(3/2)*t.getSize()/2),
+                t.getCenterX()+ (t.getSize()/2), t.getCenterY()+ (sqrt(3/2)*t.getSize()/2));
+        this.xCenter = t.getCenterX();
+        this.yCenter = t.getCenterY();
+        this.size = t.getSize();
     }
 
     public double getCenterX(){
@@ -31,6 +41,10 @@ public class EquilateralTriangle extends Polygon {
         return size;
     }
 
+    @Override
+    public String toString(){
+        return "EquilateralTriangle";
+    }
 
 
 }

@@ -8,13 +8,6 @@ import javafx.scene.input.DragEvent;
  */
 public interface Stationable {
 
-    EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
-        @Override
-        public void handle(DragEvent event) {
 
-
-
-        }
-    };
 
 }

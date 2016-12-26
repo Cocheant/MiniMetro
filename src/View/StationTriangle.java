@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 /**
  * Created by Toinecoch on 19/12/16.
  */
-public class StationTriangle extends EquilateralTriangle implements Stationable  {
+public class StationTriangle extends EquilateralTriangle {
 
     private double xCenter, yCenter, size;
     private Color color;
@@ -20,6 +20,7 @@ public class StationTriangle extends EquilateralTriangle implements Stationable 
         this.size = size;
     }
 
+
     public StationTriangle(EquilateralTriangle t){
         super(t.getCenterX(),t.getCenterY(),t.getSize());
         this.xCenter = t.getCenterX();
@@ -29,7 +30,6 @@ public class StationTriangle extends EquilateralTriangle implements Stationable 
 
 
     }
-
     public StationTriangle(StationTriangle st){
            super(st.getCenterX(),st.getCenterY(),st.getSize());
             this.xCenter = st.getCenterX();
@@ -39,16 +39,12 @@ public class StationTriangle extends EquilateralTriangle implements Stationable 
         }
 
 
-
-
-
     public void setColor(Color c){
         color = c;
         this.setStroke(color);
         this.setFill(Color.TRANSPARENT);
         this.setStrokeWidth(4);
     }
-
     public void setEvents(Color c){
         this.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
@@ -89,6 +85,7 @@ public class StationTriangle extends EquilateralTriangle implements Stationable 
 
 
     }
+
 
     public double getCenterX(){
         return xCenter;

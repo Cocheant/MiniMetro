@@ -101,6 +101,8 @@ public class GameController extends Application {
         triangle.setFill(Color.TRANSPARENT);
         triangle.setStrokeWidth(4);
 
+        Station<EquilateralTriangle> station1 = new Station(new EquilateralTriangle(400,400 , 30));
+
         final Rectangle train = new Rectangle (xCenterCir, yCenterCir, 30, 20);
         train.setArcHeight(5);
         train.setArcWidth(5);
@@ -116,7 +118,7 @@ public class GameController extends Application {
         final View.Train train1 = new View.Train(200,200, 30);
         train1.setColor(Color.ORANGE);
 
-        Group transport = new Group(train/*,wagon*/);
+        Group transport = new Group(train);
 
         //final Line line = new Line(xCenterCir, yCenterCir, xCenterTri ,yCenterTri);
         //line.setStroke(colorLine);
@@ -284,8 +286,10 @@ public class GameController extends Application {
             }
         });
 
+        System.out.println("x= "+station1.getCenterX()+", y= "+station1.getCenterY()+", class: "+station1.toString());
 
-        root.getChildren().addAll( canvas, st2, circle, st, train1, square, cross ,clock , diamond, lozenge);
+        root.getChildren().addAll( canvas, st2, circle, st, train1, square, cross ,clock , diamond, lozenge , station1.getType());
+
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
