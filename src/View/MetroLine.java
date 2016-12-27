@@ -15,12 +15,12 @@ public class MetroLine extends Line{
     private Color color;
     private Path path;
 
-    List<Station> Stations;
 
 
     public MetroLine(){
         super(0,0,0,0);
         this.setStrokeWidth(4);
+
         xStart = 0;
         yStart = 0;
         xEnd = 0;
@@ -53,24 +53,17 @@ public class MetroLine extends Line{
 
     }
 
-    public void addStation(Station s){
-        Stations.add(s);
+    public void setStart(double x, double y){
+        this.xStart = x;
+        this.yStart = y;
+
+    }
+    public void setEnd(double x, double y){
+        this.xEnd = x;
+        this.yEnd = y;
+
     }
 
-    public void removeStation(Station s){
-        Stations.remove(s);
-    }
 
-    public int getIndex(Station s){
-        return Stations.indexOf(s);
-    }
-
-    public Station getStation(int index){
-        return Stations.get(index);
-    }
-
-    public List<Station> getStationList(){
-        return Stations;
-    }
 
 }
