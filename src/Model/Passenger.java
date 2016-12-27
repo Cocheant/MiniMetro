@@ -13,7 +13,8 @@ public class Passenger {
      * Default constructor
      */
     public Passenger(){
-
+        this.sh = Shape.Circle;
+        this.id = 0;
     }
 
     /**

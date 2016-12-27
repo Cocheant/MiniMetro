@@ -3,5 +3,10 @@ package Model;
 /**
  * Created by hugo on 12/20/2016.
  */
-public class Clock {
+public class Clock implements Runnable {
+
+    public void run() {
+
+    }
+
 }
