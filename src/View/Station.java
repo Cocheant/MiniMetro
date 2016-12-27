@@ -21,12 +21,16 @@ public class Station<T extends Shape>{
 
     T t;
 
+    static double lastCoordX,lastCoordY;
+
     double xCenter,yCenter;
-    double beginX, beginY;
+
 
     EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
         @Override
         public void handle(final DragEvent event) {
+
+
 
            if(event.getEventType() == DragEvent.DRAG_ENTERED) {
                System.out.println("DRAG_ENTERED");
@@ -34,6 +38,8 @@ public class Station<T extends Shape>{
            else if (event.getEventType() == (DragEvent.DRAG_EXITED)) {
                System.out.println("DRAG_EXITED");
                t.setFill(Color.TRANSPARENT);
+               Dragboard db = event.getDragboard();
+
                event.consume();
            }
            else if (event.getEventType()==(DragEvent.DRAG_OVER)) {
@@ -42,6 +48,17 @@ public class Station<T extends Shape>{
                        event.getDragboard().hasString()) {
                    event.acceptTransferModes(TransferMode.COPY);
                    t.setFill(Color.LIGHTGREY);
+                   Dragboard db = event.getDragboard();
+                   boolean success = false;
+                   if (db.hasString()) {
+                       success = true;
+                   }
+
+                   GameController.addElement(new MetroLine(lastCoordX,lastCoordY,getCenterX(),getCenterY(),Color.BLUEVIOLET));
+                  lastCoordX = getCenterX();
+                  lastCoordY = getCenterY();
+
+
                }
            }
            else if (event.getEventType()==(DragEvent.DRAG_DONE)) {
@@ -71,7 +88,6 @@ public class Station<T extends Shape>{
 
                event.setDropCompleted(success);
 
-               event.consume();
            }
            event.consume();
         }
@@ -84,13 +100,13 @@ public class Station<T extends Shape>{
             System.out.println("onDragDetected");
             Dragboard db = t.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
-            beginX = (t.getLayoutBounds().getMaxX() + t.getLayoutBounds().getMinX())/2;
-            beginY = (t.getLayoutBounds().getMaxY() + t.getLayoutBounds().getMinY())/2;
-            content.putString("Message");
-            content.putString(""+String.valueOf(beginX)+"/" + String.valueOf(beginY)+"");
+            lastCoordX = (t.getLayoutBounds().getMaxX() + t.getLayoutBounds().getMinX())/2;
+            lastCoordY = (t.getLayoutBounds().getMaxY() + t.getLayoutBounds().getMinY())/2;
+            content.putString(""+String.valueOf(lastCoordX)+"/" + String.valueOf(lastCoordY)+"");
             db.setContent(content);
 
             event.consume();
+
         }
     };
 

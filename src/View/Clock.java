@@ -8,7 +8,9 @@ import javafx.scene.text.Font;
 
 
 /**
- * Created by hugo on 12/20/2016.
+ * Created by Antoine on 12/20/2016.
+ *
+ * Class to define the view of the clock.
  */
 public class Clock extends Label{
 
@@ -76,7 +78,6 @@ public class Clock extends Label{
         hours = time;
     }
 
-
     public void start(){
         running = true;
         this.textProperty().bind(task.messageProperty());
@@ -98,5 +99,8 @@ public class Clock extends Label{
         this.setTranslateY(y);
     }
 
+    public void setSpeed(int millis){
+        if(millis > 0 )  this.millisSpeed = millis;
+    }
 
 }

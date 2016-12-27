@@ -28,6 +28,8 @@ public class Line {
     public Line(){
         this.id = 0;
         this.col = Color.blue;
+        trains = new ArrayList<Train>();
+        stops = new ArrayList<Station>();
     }
 
     /**
@@ -58,5 +60,9 @@ public class Line {
         if(this.trains.get(0)!= null){
             this.trains.get(0).addWagon(wa);
         }
+    }
+
+    public void addStation(Station s){
+        stops.add(s);
     }
 }

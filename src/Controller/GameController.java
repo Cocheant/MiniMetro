@@ -31,22 +31,12 @@ public class GameController extends Application {
     public void start(Stage theStage)
     {
 
-        //TODO Create a class for each station (square, circle, etc) and put their events inside
-
-        // Test
-
         final double widthWindow = 1024;
         final double heightWindow = 800;
 
+        Line red = new Line();
+
         double vitesseTrain = 0.13;
-        /*double xCenterTri =800;
-        double yCenterTri = 400;
-        double tailleTri = 40;
-
-        double xCenterCir = 120;
-        double yCenterCir = 120;
-        double diameter = 30;*/
-
 
         theStage.setTitle( "Mini Metro" );
         Canvas canvas = new Canvas( widthWindow, heightWindow );
@@ -54,58 +44,6 @@ public class GameController extends Application {
         Clock clock = new Clock();
         clock.setPosition(widthWindow - 150, 5);
         clock.start();
-        /*
-
-
-        final Diamond diamond = new Diamond(300 , 300, 30);
-        diamond.setFill(Color.TRANSPARENT);
-        diamond.setStroke(Color.BLACK);
-        diamond.setStrokeWidth(3);
-
-        final Lozenge lozenge = new Lozenge(300 , 500, 30);
-        lozenge.setFill(Color.TRANSPARENT);
-        lozenge.setStroke(Color.BLACK);
-        lozenge.setStrokeWidth(3);
-
-        final Square square = new Square(600 , 500, 30);
-        square.setFill(Color.TRANSPARENT);
-        square.setStroke(Color.BLACK);
-        square.setStrokeWidth(3);
-
-        final StationTriangle st= new StationTriangle(400,100 , 30);
-        st.setEvents(Color.ORANGE);
-        st.setColor(Color.BLACK);
-
-        final StationTriangle st2= new StationTriangle(xCenterTri,yCenterTri , 30);
-        st2.setEvents(Color.BLUE);
-        st2.setColor(Color.BLACK);
-
-        Color colorLine = Color.ORANGE;
-
-        final Cross cross = new Cross(800, 600 , 30);
-        cross.setFill(Color.TRANSPARENT);
-        cross.setStroke(Color.BLACK);
-        cross.setStrokeWidth(3);
-
-        final Circle circle = new Circle(xCenterCir,yCenterCir,diameter/2);
-        circle.setStroke(Color.BLACK);
-        circle.setFill(Color.TRANSPARENT);
-        circle.setStrokeWidth(3);
-
-
-
-        triangle.setStroke(Color.BLACK);
-        triangle.setFill(Color.TRANSPARENT);
-        triangle.setStrokeWidth(4);
-        final View.Train train1 = new View.Train(200,200, 30);
-        train1.setColor(Color.ORANGE);
-
-
-        MetroLine l1 = new MetroLine(station1.getCenterX(),station1.getCenterY(),station2.getCenterX(),station2.getCenterY(),Color.BLUE);
-        MetroLine l2 = new MetroLine(station2.getCenterX(),station2.getCenterY(),station3.getCenterX(),station3.getCenterY(),Color.BLUE);
-
-        */
-
 
         Station<EquilateralTriangle> triangleStation = new Station(new EquilateralTriangle(400,400 , 30));
         Station<Circle> circleStation = new Station(new Circle(600,600 , 15));
