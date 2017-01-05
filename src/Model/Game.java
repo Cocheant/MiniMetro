@@ -24,6 +24,13 @@ public class Game implements Runnable {
 
     private ArrayList<Wagon> wagons;
 
+    /**
+     * Default constructor
+     */
+    public Game(){
+        map = new Map();
+    }
+
     public void run() {
 
     }
@@ -31,5 +38,7 @@ public class Game implements Runnable {
     public void start(){
 
     }
+
+
 
 }
