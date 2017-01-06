@@ -151,6 +151,11 @@ public class Game implements Runnable {
 
     }
 
+    /**
+     * Adds a train to a specific line
+     * @param l the line on which the train will run
+     * @param co the coordinates where the user leaves the train (used to find the nearest station on the line)
+     */
     private void addTrainToLine(Line l, Coordinates co){
         if(countTrains < availableTrains){
             countTrains ++;
@@ -161,6 +166,12 @@ public class Game implements Runnable {
     }
 
 
+    /**
+     * Finds the nearest station on the line from the coordinates
+     * @param l the line
+     * @param co the start coordinates
+     * @return the coordinates of the nearest station
+     */
     private Coordinates nearestStationOnLine(Line l, Coordinates co){
         Coordinates res = null;
         Double distance = 1000.0;
