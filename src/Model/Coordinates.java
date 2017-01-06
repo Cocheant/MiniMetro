@@ -1,5 +1,7 @@
 package Model;
 
+import java.lang.Math;
+
 /**
  * Created by hugo on 12/23/2016.
  */
@@ -45,5 +47,12 @@ public class Coordinates {
     public void move(int x, int y){
         setX(this.x + x);
         setY(this.y + y);
+    }
+
+    public double distance(Coordinates co){
+        int res = 0;
+        res += Math.pow((this.x - co.getX()),2);
+        res += Math.pow((this.y - co.getY()), 2);
+        return (Math.sqrt(res));
     }
 }
