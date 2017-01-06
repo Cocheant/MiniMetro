@@ -23,7 +23,9 @@ public class main extends Application {
 
         GameController controller = new GameController();
         Game game = new Game(controller);
+        controller.setGame(game);
         View view = new View(controller, root);
+        controller.setView(view);
 
     }
 }
