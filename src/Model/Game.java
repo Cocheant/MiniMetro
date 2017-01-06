@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.GameController;
 import sun.reflect.annotation.ExceptionProxy;
 
 import java.awt.*;
@@ -38,10 +39,14 @@ public class Game implements Runnable {
 
     private Random rand = new Random(50);
 
+    private GameController controller;
+
     /**
-     * Default constructor
+     * Initializing constructor
      */
-    public Game(){
+    public Game(GameController controller){
+
+        this.controller = controller;
 
         countStations = 0;
         countPassengers = 0;
