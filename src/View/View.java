@@ -16,4 +16,12 @@ public class View {
         this.controller = controller;
         this.root = root;
     }
+
+
+    /**
+     * TODO
+     */
+    public void refresh(){
+
+    }
 }

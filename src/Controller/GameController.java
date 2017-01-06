@@ -25,6 +25,10 @@ public class GameController extends Application {
 
      static Group root = new Group();
 
+     private Game game;
+
+     private View view;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -88,6 +92,21 @@ public class GameController extends Application {
 
     public static void addElement(Node n){
         root.getChildren().add(n);
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    /**
+     * TODO
+     */
+    public void refreshDisplay(){
+
     }
 }
 

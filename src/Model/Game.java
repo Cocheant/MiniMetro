@@ -87,6 +87,13 @@ public class Game implements Runnable {
     }
 
     /**
+     * TODO
+     */
+    public void refreshDisplay(){
+        this.controller.refreshDisplay();
+    }
+
+    /**
      * Creates a new station
      * @param co the coordinates of the station
      * @param sh the shape of the station
