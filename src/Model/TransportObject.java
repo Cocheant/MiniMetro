@@ -31,4 +31,8 @@ public abstract class TransportObject extends PassengerContainer {
             throw new Exception("Transport Object Full");
         }
     }
+
+    public void move(int x, int y){
+        this.co.move(x,y);
+    }
 }

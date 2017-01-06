@@ -36,4 +36,16 @@ public class Train extends TransportObject {
         this.wagons.add(wa);
     }
 
+    /**
+     * Moves the train & all wagons attached to the train
+     * @param x the amount of movement in the X direction
+     * @param y the amount of movement in the Y direction
+     */
+    @Override
+    public void move(int x, int y) {
+        super.move(x, y);
+        for(Wagon w : wagons){
+            w.move(x,y);
+        }
+    }
 }

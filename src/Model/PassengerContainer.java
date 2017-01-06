@@ -6,7 +6,7 @@ import java.util.ArrayList;
  */
 public abstract class PassengerContainer {
 
-    private Coordinates co;
+    protected Coordinates co;
 
     private int id;
 
