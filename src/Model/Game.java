@@ -1,8 +1,11 @@
 package Model;
 
+import sun.reflect.annotation.ExceptionProxy;
+
 import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by hugo on 12/26/2016.
@@ -33,6 +36,8 @@ public class Game implements Runnable {
     private int countWagons;
     private ArrayList<Wagon> wagons;
 
+    private Random rand = new Random(50);
+
     /**
      * Default constructor
      */
@@ -62,19 +67,72 @@ public class Game implements Runnable {
 
     }
 
+    /**
+     * Creates a new station
+     * @param co the coordinates of the station
+     * @param sh the shape of the station
+     */
     private void addStation(Coordinates co, Shape sh){
         int id = countStations;
         this.stations.add(new Station(co,id,sh));
         this.countStations ++;
     }
 
+    /**
+     * Adds a passenger to a random station
+     * @param p the passenger to add
+     */
+    private void randomStationAdd(Passenger p){
+        int randomNum = rand.nextInt(countStations);
+        try{
+            this.stations.get(randomNum).addPassenger(p);
+        }catch (Exception e){
+            // TODO : START FILLED STATION TIMER
+        }
+
+    }
+
+    /**
+     * Creates a new passenger
+     * @param sh the shape of the passenger
+     */
     private void addPassenger(Shape sh){
         int id = countPassengers;
-        this.passengers.add(new Passenger(sh, id));
+        Passenger p = new Passenger(sh, id);
+        this.passengers.add(p);
+        randomStationAdd(p);
         this.countPassengers ++;
     }
 
-    private void addLine(Color col, ArrayList<Station> stops) throws Exception{
+    /**
+     * Removes a passenger from the list. This is used when the passenger arrives at it's destination
+     * @param p the passenger to remove
+     * @throws Exception if the passenger is not found on the list for some reason
+     */
+    private void removePassenger(Passenger p) throws Exception {
+        if(this.passengers.remove(p)){
+            this.countPassengers --;
+        }else{
+            throw new Exception("Passenger not found");
+        }
+
+    }
+
+    /**
+     * Adds a line and it's corresponding train to the available line & trains
+     */
+    private void addLine(){
+        this.availableLines ++;
+        this.availableTrains ++;
+    }
+
+    /**
+     * Creates a line between all the stops
+     * @param col the color of the line
+     * @param stops the different stations included in the line
+     * @throws Exception throws exception if player is out of free lines
+     */
+    private void createLine(Color col, ArrayList<Station> stops) throws Exception{
         if(countLines < availableLines){
             int id = countLines;
             this.lines.add(new Line(id, col, stops));
@@ -83,6 +141,11 @@ public class Game implements Runnable {
         }
     }
 
+    /**
+     * TODO
+     * @param id
+     * @param stops
+     */
     private void modifyLine(int id, ArrayList<Station> stops){
 
     }
