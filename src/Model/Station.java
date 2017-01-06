@@ -9,6 +9,8 @@ public class Station extends PassengerContainer {
 
     private static int capacity = 20;
 
+
+
     /**
      * Default constructor
      */

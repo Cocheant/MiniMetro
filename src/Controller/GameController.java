@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.Game;
 import View.*;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -81,6 +82,8 @@ public class GameController extends Application {
         theStage.setScene( theScene );
 
         theStage.show();
+
+        Game game = new Game();
     }
 
     public static void addElement(Node n){

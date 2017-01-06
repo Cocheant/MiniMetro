@@ -34,7 +34,7 @@ public abstract class PassengerContainer {
 
     public abstract void addPassenger(Passenger p) throws Exception;
 
-    public Coordinates getCo() {
+    public Coordinates getCo(){
         return co;
     }
 }

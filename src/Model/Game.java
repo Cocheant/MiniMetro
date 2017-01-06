@@ -19,6 +19,11 @@ public class Game implements Runnable {
 
     private int score;
 
+    final int widthWindow = 1024;
+    final int heightWindow = 800;
+
+    final int stationSize = 30;
+
     private int countStations;
     private ArrayList<Station> stations;
 
@@ -36,6 +41,9 @@ public class Game implements Runnable {
     private int availableWagons;
     private int countWagons;
     private ArrayList<Wagon> wagons;
+
+    private Random randCoordinateX = new Random(10);
+    private Random randCoordinateY = new Random(20);
 
     private Random rand = new Random(50);
 
@@ -57,11 +65,17 @@ public class Game implements Runnable {
         availableWagons = 0;
         countWagons = 0;
         score = 0;
-        map = new Map();
+        //map = new Map();
+
+        stations = new ArrayList<Station>();
 
         addStation(new Coordinates(10,10), Shape.Circle);
         addStation(new Coordinates(20,20), Shape.Circle);
         addStation(new Coordinates(30,30), Shape.Circle);
+
+        addStation(randomStationCoordinates(),Shape.Circle);
+
+        System.out.println(isMisplaced(40,40));
     }
 
     public void run() {
@@ -95,6 +109,20 @@ public class Game implements Runnable {
             // TODO : START FILLED STATION TIMER
         }
 
+    }
+
+    private Coordinates randomStationCoordinates(){
+
+        Coordinates RandCoord = new Coordinates(0,0);
+
+        int x = 0;
+        int y = 0;
+
+        while(isMisplaced(x,y)) {
+            x = stationSize + (int)(Math.random() * (widthWindow - stationSize));
+            y = stationSize + (int)(Math.random() * (heightWindow - stationSize));
+        }
+        return RandCoord;
     }
 
     /**
@@ -156,6 +184,18 @@ public class Game implements Runnable {
 
     }
 
+    private boolean isMisplaced(int x, int y ){
+        boolean misplaced = false;
+        double distance = 0.;
+
+        for(Station s:stations){
+            distance = Math.sqrt(Math.abs(s.getCo().getX()-x)*Math.abs(s.getCo().getX()-x)+ Math.abs(s.getCo().getY()-y)*Math.abs(s.getCo().getY()-y));
+            if((distance < stationSize * 3)||((x < stationSize)&&(y< stationSize))){
+                misplaced = true;
+            }
+        }
+        return misplaced;
+    }
     /**
      * Adds a train to a specific line
      * @param l the line on which the train will run
