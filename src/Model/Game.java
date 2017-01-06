@@ -155,16 +155,34 @@ public class Game implements Runnable {
      * Adds a train to a specific line
      * @param l the line on which the train will run
      * @param co the coordinates where the user leaves the train (used to find the nearest station on the line)
+     * @throws Exception
      */
-    private void addTrainToLine(Line l, Coordinates co){
+    private void addTrainToLine(Line l, Coordinates co) throws Exception{
         if(countTrains < availableTrains){
             countTrains ++;
             int id = countTrains;
             Coordinates newCo = nearestStationOnLine(l, co);
             l.addTrain(new Train(co, id, true));
+        }else{
+            throw new Exception("No available train");
         }
     }
 
+    /**
+     * Adds a wagon at the end of the nearest train on the line
+     * @param l the line on which the wagon will be used
+     * @param w the wagon to add
+     * @param co the coordinates where the user leaves the wagon (used to find the nearest train)
+     */
+    private void addWagonToLine(Line l, Wagon w, Coordinates co) throws Exception {
+        if(countWagons < availableWagons){
+            countWagons ++;
+            int id = countWagons;
+            nearestTrainOnLine(l, co).addWagon(w);
+        }else{
+            throw new Exception("No available wagon");
+        }
+    }
 
     /**
      * Finds the nearest station on the line from the coordinates
@@ -175,13 +193,35 @@ public class Game implements Runnable {
     private Coordinates nearestStationOnLine(Line l, Coordinates co){
         Coordinates res = null;
         Double distance = 1000.0;
+        ArrayList<Station> stations = l.getStops();
 
-        for(Station s : Line.getStops()){
+        for(Station s : stations){
             if(s.getCo().distance(co) < distance){
                 distance = s.getCo().distance(co);
                 res = s.getCo();
             }
         }
+        return res;
+    }
+
+    /**
+     * finds the nearest train on a line from the given coordinates
+     * @param l the line on which the trains are
+     * @param co the coordinates given
+     * @return the closest train
+     */
+    private Train nearestTrainOnLine(Line l, Coordinates co){
+        Train res = null;
+        double distance = 1000.0;
+        ArrayList<Train> trains = l.getTrains();
+
+        for(Train t : trains){
+            if(t.getCo().distance(co) < distance){
+                distance = t.getCo().distance(co);
+                res = t;
+            }
+        }
+
         return res;
     }
 }

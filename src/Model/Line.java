@@ -66,7 +66,11 @@ public class Line {
         stops.add(s);
     }
 
-    public static ArrayList<Station> getStops() {
+    public ArrayList<Station> getStops() {
         return stops;
+    }
+
+    public ArrayList<Train> getTrains() {
+        return trains;
     }
 }
