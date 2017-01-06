@@ -73,9 +73,9 @@ public class Game implements Runnable {
      * @param sh the shape of the station
      */
     private void addStation(Coordinates co, Shape sh){
+        this.countStations ++;
         int id = countStations;
         this.stations.add(new Station(co,id,sh));
-        this.countStations ++;
     }
 
     /**
@@ -134,6 +134,7 @@ public class Game implements Runnable {
      */
     private void createLine(Color col, ArrayList<Station> stops) throws Exception{
         if(countLines < availableLines){
+            countLines ++;
             int id = countLines;
             this.lines.add(new Line(id, col, stops));
         }else{
@@ -150,5 +151,26 @@ public class Game implements Runnable {
 
     }
 
+    private void addTrainToLine(Line l, Coordinates co){
+        if(countTrains < availableTrains){
+            countTrains ++;
+            int id = countTrains;
+            Coordinates newCo = nearestStationOnLine(l, co);
+            l.addTrain(new Train(co, id, true));
+        }
+    }
 
+
+    private Coordinates nearestStationOnLine(Line l, Coordinates co){
+        Coordinates res = null;
+        Double distance = 1000.0;
+
+        for(Station s : Line.getStops()){
+            if(s.getCo().distance(co) < distance){
+                distance = s.getCo().distance(co);
+                res = s.getCo();
+            }
+        }
+        return res;
+    }
 }

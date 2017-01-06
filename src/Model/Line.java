@@ -65,4 +65,8 @@ public class Line {
     public void addStation(Station s){
         stops.add(s);
     }
+
+    public static ArrayList<Station> getStops() {
+        return stops;
+    }
 }
