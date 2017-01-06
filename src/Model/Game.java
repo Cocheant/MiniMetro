@@ -75,7 +75,6 @@ public class Game implements Runnable {
 
         addStation(randomStationCoordinates(),Shape.Circle);
 
-        System.out.println(isMisplaced(40,40));
     }
 
     public void run() {
@@ -122,12 +121,9 @@ public class Game implements Runnable {
 
         Coordinates RandCoord = new Coordinates(0,0);
 
-        int x = 0;
-        int y = 0;
-
-        while(isMisplaced(x,y)) {
-            x = stationSize + (int)(Math.random() * (widthWindow - stationSize));
-            y = stationSize + (int)(Math.random() * (heightWindow - stationSize));
+        while(isMisplaced(RandCoord)) {
+            RandCoord.setX( stationSize + (int)(Math.random() * (widthWindow - stationSize)) );
+            RandCoord.setY( stationSize + (int)(Math.random() * (heightWindow - stationSize)) );
         }
         return RandCoord;
     }
@@ -191,13 +187,18 @@ public class Game implements Runnable {
 
     }
 
-    private boolean isMisplaced(int x, int y ){
+    /**
+     * Sees whether or not a station is too close to another statoin
+     * @param co the coordinates to be tested
+     * @return true if misplaced
+     */
+    private boolean isMisplaced(Coordinates co){
         boolean misplaced = false;
         double distance = 0.;
 
         for(Station s:stations){
-            distance = Math.sqrt(Math.abs(s.getCo().getX()-x)*Math.abs(s.getCo().getX()-x)+ Math.abs(s.getCo().getY()-y)*Math.abs(s.getCo().getY()-y));
-            if((distance < stationSize * 3)||((x < stationSize)&&(y< stationSize))){
+            distance = s.getCo().distance(co);
+            if((distance < stationSize * 3)||((co.getX() < stationSize)&&(co.getY() < stationSize))){
                 misplaced = true;
             }
         }
