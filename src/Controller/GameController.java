@@ -1,62 +1,36 @@
 package Controller;
 import Model.Game;
+import Model.StationGenerator;
 import Model.*;
 import View.*;
 import View.Clock;
 import View.Station;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.concurrent.Task;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.*;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
-
-import static java.lang.StrictMath.sqrt;
-import static java.lang.Thread.sleep;
-
 
 public class GameController extends Application {
 
      static Group root = new Group();
-     ArrayList<Station> stations;
-    final double widthWindow = 1024;
-    final double heightWindow = 600;
-    final double stationSize = 30 ;
+     public ArrayList<Station> stations;
+     final double widthWindow = 1024;
+     final double heightWindow = 600;
+     final double stationSize = 15 ;
+
+    StationGenerator stationGenerator = new StationGenerator(this);
 
     boolean running = true;
-
-    Task <Void> task = new Task<Void>() {
-
-        @Override
-        public Void call() throws InterruptedException {
-
-            while(running) {
-
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                }
-                Square s = new Square(randCoord().getX(), randCoord().getY(), stationSize);
-                root.getChildren().add((new Station<Square>(s)).getType());
-            }
-            return null;
-
-        }
-    };
-
 
      private Game game;
 
@@ -68,7 +42,6 @@ public class GameController extends Application {
 
     public void start(Stage theStage)
     {
-
 
 
         Line red = new Line();
@@ -91,10 +64,11 @@ public class GameController extends Application {
         Station<Circle> circleStation = new Station(new Circle(randCoord().getX(),randCoord().getY() , stationSize/2));
         stations.add(circleStation);
 
+        /*
         Station<Square> squareStation = new Station(new Square(randCoord().getY(), randCoord().getY(), stationSize));
         stations.add(squareStation);
 
-        /*
+
         Station<Diamond> diamondStation = new Station(new Diamond(randCoord().getX() , randCoord().getY(), stationSize));
         stations.add(diamondStation);
 
@@ -122,25 +96,29 @@ public class GameController extends Application {
 
         */
 
+        root.getChildren().addAll( canvas, clock,triangleStation.getType(), circleStation.getType());
 
-
-
-
-        root.getChildren().addAll( canvas, clock,triangleStation.getType(), circleStation.getType(),squareStation.getType());
-
-                //,diamondStation.getType(),crossStation.getType(),lozengeStation.getType());
+                //,squareStation.getType(),diamondStation.getType(),crossStation.getType(),lozengeStation.getType());
 
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        /*Thread t = new Thread(task);
-        t.setDaemon(true);
-        t.start();*/
+
 
         Scene theScene = new Scene( root );
         theStage.setScene( theScene );
 
         theStage.show();
+        stationGenerator.start();
 
+        theStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+            public void handle(WindowEvent t) {
+                stationGenerator.exitLoop();
+                stationGenerator.interrupt();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
 
     }
 
@@ -175,9 +153,6 @@ public class GameController extends Application {
         return new Coordinates((int)x,(int)y);
     }
 
-
-
-
     public void setGame(Game game) {
         this.game = game;
     }
@@ -186,11 +161,21 @@ public class GameController extends Application {
         this.view = view;
     }
 
+    public  ArrayList<Station> getStations(){
+        return stations;
+    }
+
+    public void addStation(Station s){
+        stations.add(s);
+    }
+
     /**
      * TODO
      */
-    public void refreshDisplay(){
+     public void refreshDisplay(){
 
     }
+
+
 }
 

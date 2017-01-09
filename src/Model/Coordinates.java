@@ -5,11 +5,12 @@ import java.lang.Math;
 /**
  * Created by hugo on 12/23/2016.
  */
-public class Coordinates {
+public class Coordinates<T> {
 
-    private int x;
+    private double x;
+    private double y;
 
-    private int y;
+
 
     /**
      * Default constructor
@@ -27,24 +28,28 @@ public class Coordinates {
         this.x = x;
         this.y = y;
     }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
+    public Coordinates(double x, double y ){
         this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
         this.y = y;
     }
 
-    public void move(int x, int y){
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void move(double x, double y){
         setX(this.x + x);
         setY(this.y + y);
     }
