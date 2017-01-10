@@ -5,6 +5,7 @@ import Model.*;
 import View.*;
 import View.Clock;
 import View.Station;
+import com.sun.media.sound.RIFFInvalidDataException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -20,7 +21,7 @@ import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
 
-public class GameController extends Application {
+public class GameController extends Application implements Runnable {
 
      static Group root = new Group();
      public ArrayList<Station> stations;
@@ -119,6 +120,11 @@ public class GameController extends Application {
                 System.exit(0);
             }
         });
+
+    }
+
+    public void run()
+    {
 
     }
 

@@ -14,6 +14,10 @@ public class main extends Application {
 
     static Group root = new Group();
 
+    private final double widthWindow = 1024.0;
+    private final double heightWindow = 600.0;
+    private final double stationSize = 15 ;
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -24,8 +28,12 @@ public class main extends Application {
         GameController controller = new GameController();
         Game game = new Game(controller);
         controller.setGame(game);
-        View view = new View(controller, root);
+        View view = new View(controller, root, widthWindow, heightWindow, primaryStage);
         controller.setView(view);
+
+        game.run();
+        controller.run();
+        view.run();
 
     }
 }
