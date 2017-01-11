@@ -88,9 +88,9 @@ public class Game implements Runnable {
     /**
      * TODO
      */
-    public void refreshDisplay(){
-        this.controller.refreshDisplay();
-    }
+    /*public void refreshDisplay(){
+        this.view.refreshDisplay();
+    }*/
 
     /**
      * Creates a new station

@@ -21,12 +21,13 @@ public class Station<T extends Shape>{
 
     T t;
 
-    static double lastCoordX,lastCoordY;
+    double lastCoordX,lastCoordY;
 
     double xCenter,yCenter;
 
 
     EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
+
         public void handle(final DragEvent event) {
 
 
@@ -53,7 +54,7 @@ public class Station<T extends Shape>{
                        success = true;
                    }
 
-                   GameController.addElement(new MetroLine(lastCoordX,lastCoordY,getCenterX(),getCenterY(),Color.BLUEVIOLET));
+                   View.addElement(new MetroLine(lastCoordX,lastCoordY,getCenterX(),getCenterY(),Color.BLUEVIOLET));
                   lastCoordX = getCenterX();
                   lastCoordY = getCenterY();
 
@@ -66,7 +67,6 @@ public class Station<T extends Shape>{
                if (event.getTransferMode() == TransferMode.LINK) {
 
                }
-
                event.consume();
            }
            else if (event.getEventType()==(DragEvent.DRAG_DROPPED)) {
@@ -83,7 +83,7 @@ public class Station<T extends Shape>{
                System.out.println(s1 +"/"+s2);
                // let the source know whether the string was successfully
                // transferred and used
-               GameController.addElement(new MetroLine(Double.valueOf(s1),Double.valueOf(s2),xCenter,yCenter,Color.BLUEVIOLET));
+               View.addElement(new MetroLine(Double.valueOf(s1),Double.valueOf(s2),xCenter,yCenter,Color.BLUEVIOLET));
 
                event.setDropCompleted(success);
 

@@ -1,23 +1,15 @@
 
 package Model;
 
-import Controller.GameController;
-import Main.Main;
-import Model.Coordinates;
 import View.*;
 import View.Station;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
-import javafx.collections.ObservableListBase;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.shape.Circle;
-import java.lang.management.GarbageCollectorMXBean;
+
 import java.util.ArrayList;
 
-import static Main.Main.addElement;
+import View.View;
 
 /**
  * Created by Toinecoch on 9/1/17.
@@ -31,12 +23,16 @@ public class StationGenerator extends Thread{
     final int stationRate = 3000;
     private ArrayList<Station> stations;
 
+    View view ;
     Group scene;
     boolean running;
 
-    public StationGenerator(ArrayList<Station> a){
+    public StationGenerator(View view){
 
-        stations = new ArrayList<Station>(a);
+
+        this.view = view ;
+
+        stations = new ArrayList<Station>(view.getStations());
 
         running = true;
     }
@@ -45,11 +41,14 @@ public class StationGenerator extends Thread{
     public void run(){
         while(running){
 
+
+
             final Station s = RandomStation();
 
             Platform.runLater(new Runnable() {
                 public void run() {
-                    addElement(s.getType());
+                    view.addElement(s.getType());
+                    view.addStation(s);
                     stations.add(s);
                 }
             });
