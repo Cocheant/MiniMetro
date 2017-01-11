@@ -1,29 +1,43 @@
+
 package Model;
 
 import Controller.GameController;
+import Main.Main;
 import Model.Coordinates;
 import View.*;
 import View.Station;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableListBase;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.shape.Circle;
-
 import java.lang.management.GarbageCollectorMXBean;
+import java.util.ArrayList;
+
+import static Main.Main.addElement;
 
 /**
  * Created by Toinecoch on 9/1/17.
  */
+
 public class StationGenerator extends Thread{
 
     final double widthWindow = 1024;
     final double heightWindow = 600;
     final double stationSize = 15 ;
-    final int stationRate = 30000;
-    private GameController app;
+    final int stationRate = 3000;
+    private ArrayList<Station> stations;
+
+    Group scene;
     boolean running;
 
-    public StationGenerator(GameController a){
-        app = a;
+    public StationGenerator(ArrayList<Station> a){
+
+        stations = new ArrayList<Station>(a);
+
         running = true;
     }
 
@@ -35,8 +49,8 @@ public class StationGenerator extends Thread{
 
             Platform.runLater(new Runnable() {
                 public void run() {
-                    GameController.addElement(s.getType());
-                    app.addStation(s);
+                    addElement(s.getType());
+                    stations.add(s);
                 }
             });
             try {
@@ -48,9 +62,9 @@ public class StationGenerator extends Thread{
         boolean misplaced = false;
         double distance = 0.;
 
-        for(Station s: app.getStations()){
+        for(Station s: stations){
             distance = new Coordinates(s.getCenterX(),s.getCenterY()).distance(new Coordinates(x,y));
-            if((distance < stationSize * 10)||((x < stationSize)&&(y< stationSize))){
+            if((distance < stationSize * 10)||((x < stationSize*2)&&(y< stationSize*2))){
                 misplaced = true;
             }
         }
@@ -112,6 +126,5 @@ public class StationGenerator extends Thread{
     public void exitLoop(){
         running = false;
     }
-
 
 }

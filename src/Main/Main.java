@@ -1,6 +1,10 @@
+package Main;
 
-package Controller;
+/**
+ * Created by hugo on 1/6/2017.
+ */
 
+import Controller.GameController;
 import Model.Game;
 import Model.StationGenerator;
 import Model.*;
@@ -22,18 +26,19 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+
 import java.util.ArrayList;
 
+public class Main extends Application {
 
-public class GameController extends Application {
 
     static Group root = new Group();
-    public ArrayList<Station> stations = new ArrayList<Station>();
+    public ArrayList<Station> stations;
     final double widthWindow = 1024;
     final double heightWindow = 600;
     final double stationSize = 15 ;
 
-    StationGenerator stationGenerator ;
+    StationGenerator stationGenerator;
 
     boolean running = true;
 
@@ -41,13 +46,12 @@ public class GameController extends Application {
 
     private View view;
 
-    public static void main(String[] args) {
+    public static void Main(String[] args) {
         launch(args);
     }
 
     public void start(Stage theStage)
     {
-
         Line red = new Line();
 
         double vitesseTrain = 0.13;
@@ -59,6 +63,8 @@ public class GameController extends Application {
         clock.setPosition(widthWindow - 150, 5);
         clock.start();
 
+        stations = new ArrayList<Station>();
+
         Station<EquilateralTriangle> triangleStation = new Station(new EquilateralTriangle(400,400 , stationSize));
         stations.add(triangleStation);
 
@@ -68,7 +74,8 @@ public class GameController extends Application {
         Station<Square> squareStation = new Station(new Square(randCoord().getX(),randCoord().getY() , stationSize));
         stations.add(squareStation);
 
-        //stationGenerator = new StationGenerator(stations, this);
+
+        stationGenerator = new StationGenerator(stations);
 
         Rectangle transport = new Rectangle(triangleStation.getCenterX(),triangleStation.getCenterY(),15,8);
 
@@ -97,7 +104,7 @@ public class GameController extends Application {
         path.getElements().add(new LineTo(circleStation.getCenterX(), circleStation.getCenterY()));
         path.getElements().add(new LineTo(squareStation.getCenterX(),squareStation.getCenterY()));
         pathTransition.setDuration(Duration.millis(Math.sqrt((triangleStation.getCenterX() - circleStation.getCenterX())*(triangleStation.getCenterX() - circleStation.getCenterX())
-                                                    +(triangleStation.getCenterY() - circleStation.getCenterY()) *(triangleStation.getCenterY() - circleStation.getCenterY()))/ vitesseTrain));
+                +(triangleStation.getCenterY() - circleStation.getCenterY()) *(triangleStation.getCenterY() - circleStation.getCenterY()))/ vitesseTrain));
 
 
         pathTransition.setPath(path);
@@ -129,6 +136,7 @@ public class GameController extends Application {
                 System.exit(0);
             }
         });
+
     }
 
     public static void addElement(Node n){
@@ -182,7 +190,7 @@ public class GameController extends Application {
      * TODO
      */
 
-     public void refreshDisplay(){
+    public void refreshDisplay(){
     }
 
 }
