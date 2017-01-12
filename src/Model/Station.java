@@ -9,6 +9,7 @@ public class Station extends PassengerContainer {
 
     private static int capacity = 20;
 
+    private static int id = 1 ;
 
 
     /**
@@ -28,6 +29,12 @@ public class Station extends PassengerContainer {
     public Station(Coordinates co, int id, Shape sh){
         super(co, id);
         this.sh = sh;
+        id ++;
+    }
+    public Station(Coordinates co, Shape sh){
+        super(co, id);
+        id ++;
+        this.sh = sh;
     }
 
 
@@ -37,6 +44,10 @@ public class Station extends PassengerContainer {
         if(capacity<passengers.size()){
             throw new Exception("Station Full");
         }
+    }
+
+    public Shape getShape(){
+        return sh;
     }
 
 }

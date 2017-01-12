@@ -27,6 +27,10 @@ public class View implements Runnable {
 
     private GameController controller;
 
+
+
+    Scene scene;
+
     private static Group root ;
 
     static private ArrayList<Station> stations;
@@ -34,17 +38,19 @@ public class View implements Runnable {
     private double heightWindow = 600;
     final double stationSize = 15 ;
 
+    Stage primaryStage;
+
 
 
     boolean running = true;
 
-    public View(GameController controller, double width, double height, Group root){
+    public View(GameController controller, double width, double height, Group root, Stage primaryStage ){
 
         this.controller = controller;
         this.widthWindow = width;
         this.heightWindow = height;
         this.root = root;
-        //this.stage = stage;
+        this.primaryStage = primaryStage;
 
     }
 
@@ -53,9 +59,11 @@ public class View implements Runnable {
 
         Line red = new Line();
 
-        double vitesseTrain = 0.13;
+        double vitesseTrain = 0.5;
 
         Canvas canvas = new Canvas(widthWindow,heightWindow);
+
+
 
         Clock clock = new Clock();
         clock.setPosition(widthWindow - 150, 5);
@@ -80,19 +88,6 @@ public class View implements Runnable {
         triangleStation.getType().toBack();
         circleStation.getType().toBack();
 
-        /*
-        Station<Square> squareStation = new Station(new Square(randCoord().getY(), randCoord().getY(), stationSize));
-        stations.add(squareStation);
-
-
-        Station<Diamond> diamondStation = new Station(new Diamond(randCoord().getX() , randCoord().getY(), stationSize));
-        stations.add(diamondStation);
-
-        Station<Cross> crossStation = new Station(new Cross(randCoord().getX() , randCoord().getY() , stationSize));
-        stations.add(crossStation);
-
-        Station<Lozenge> lozengeStation = new Station(new Lozenge(randCoord().getX()  , randCoord().getY(), stationSize));
-        stations.add(lozengeStation);*/
 
 
         Path path = new Path();
@@ -113,9 +108,12 @@ public class View implements Runnable {
         pathTransition.setAutoReverse(true);
         pathTransition.play();
 
-
         root.getChildren().addAll( canvas, clock,triangleStation.getType(), circleStation.getType(),transport,path, squareStation.getType());
 
+        scene = new Scene(root, widthWindow, heightWindow);
+        primaryStage.setTitle("Mini Metro!");
+        primaryStage.setScene(scene);
+        primaryStage.show();
 
     }
 
@@ -125,11 +123,19 @@ public class View implements Runnable {
 
     public static void addStation(Station s){
         stations.add(s);
+        addElement(s.getType());
     }
 
+    static void addElement(final Node n){
+        Platform.runLater(new Runnable() {
+            public void run() {
+                root.getChildren().add(n);
+            }
+        });
+    }
 
-    public static void addElement(Node n){
-        root.getChildren().add(n);
+    public static void deleteElement(Node n){
+        root.getChildren().remove(n);
     }
 
     private boolean isMisplaced(double x, double y ){

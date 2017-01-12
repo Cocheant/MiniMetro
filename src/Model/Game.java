@@ -24,7 +24,7 @@ public class Game implements Runnable {
 
     final int stationSize = 30;
 
-    private int countStations;
+
     private ArrayList<Station> stations;
 
     private int countPassengers;
@@ -56,7 +56,7 @@ public class Game implements Runnable {
 
         this.controller = controller;
 
-        countStations = 0;
+
         countPassengers = 0;
         availableLines = 3;
         countLines = 0;
@@ -69,11 +69,12 @@ public class Game implements Runnable {
 
         stations = new ArrayList<Station>();
 
-        addStation(new Coordinates(10,10), Shape.Circle);
-        addStation(new Coordinates(20,20), Shape.Circle);
-        addStation(new Coordinates(30,30), Shape.Circle);
 
-        addStation(randomStationCoordinates(),Shape.Circle);
+        addStation(new Station(new Coordinates(10,10), Shape.Circle));
+        addStation(new Station(new Coordinates(20,20), Shape.Circle));
+        addStation(new Station(new Coordinates(30,30), Shape.Circle));
+
+        addStation(new Station(randomStationCoordinates(),Shape.Circle));
 
     }
 
@@ -94,13 +95,10 @@ public class Game implements Runnable {
 
     /**
      * Creates a new station
-     * @param co the coordinates of the station
-     * @param sh the shape of the station
+     * @param station the station to be added.
      */
-    private void addStation(Coordinates co, Shape sh){
-        this.countStations ++;
-        int id = countStations;
-        this.stations.add(new Station(co,id,sh));
+    private void addStation(Station station){
+        this.stations.add(station);
     }
 
     /**
@@ -108,7 +106,7 @@ public class Game implements Runnable {
      * @param p the passenger to add
      */
     private void randomStationAdd(Passenger p){
-        int randomNum = rand.nextInt(countStations);
+        int randomNum = rand.nextInt(stations.size());
         try{
             this.stations.get(randomNum).addPassenger(p);
         }catch (Exception e){
@@ -188,7 +186,7 @@ public class Game implements Runnable {
     }
 
     /**
-     * Sees whether or not a station is too close to another statoin
+     * Sees whether or not a station is too close to another station
      * @param co the coordinates to be tested
      * @return true if misplaced
      */
@@ -278,6 +276,7 @@ public class Game implements Runnable {
         return res;
     }
 
-
-
+    public ArrayList<Station> getStations() {
+        return stations;
+    }
 }
