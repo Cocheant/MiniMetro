@@ -5,7 +5,6 @@ import Model.Coordinates;
 import Model.Game;
 import Model.Shape;
 import Model.StationGenerator;
-import com.apple.laf.AquaTabbedPaneCopyFromBasicUI;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;

@@ -34,7 +34,7 @@ public class Station<T extends Shape>{
 
     Model.Shape shape;
 
-    private ArrayList<Passenger> passengers;
+    private ArrayList<ViewPassenger> passengers;
 
 
     EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
@@ -162,7 +162,7 @@ public class Station<T extends Shape>{
         }
 
 
-        this.passengers = new ArrayList<Passenger>();
+        this.passengers = new ArrayList<ViewPassenger>();
     }
 
 
@@ -182,11 +182,11 @@ public class Station<T extends Shape>{
         return shape;
     }
 
-    public void addPassenger(Passenger p){
+    public void addPassenger(ViewPassenger p){
         this.passengers.add(p);
     }
 
-    public void removePassenger(Passenger p){
+    public void removePassenger(ViewPassenger p){
         this.passengers.remove(p);
     }
 }

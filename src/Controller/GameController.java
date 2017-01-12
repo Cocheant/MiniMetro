@@ -1,34 +1,25 @@
 
 package Controller;
 
+
 import Model.Coordinates;
 import Model.Game;
 import Model.Passenger;
 import Model.Shape;
-import Model.StationGenerator;
-import Model.*;
-import View.*;
-import View.Clock;
 import View.Station;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
+import View.View;
+import View.Cross;
+import View.Diamond;
+import View.EquilateralTriangle;
+import View.Lozenge;
+import View.Square;
+import View.Clock;
+import View.ViewPassenger;
+
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
-import javafx.scene.shape.Line;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.util.Duration;
-import java.util.ArrayList;
 
-import static Model.Shape.Triangle;
 
 
 public class GameController implements Runnable {
@@ -122,25 +113,25 @@ public class GameController implements Runnable {
 
     public void addViewPassengerToStation(Model.Passenger p, Model.Station s){
 
-        Passenger pa = null;
+        ViewPassenger pa = null;
         switch(p.getSh()){
             case Triangle:
-                pa = new Passenger(new EquilateralTriangle(0,0,2), p.getId());
+                pa = new ViewPassenger(new EquilateralTriangle(0,0,2), p.getId());
                 break;
             case Circle:
-                pa = new Passenger(new Circle(0,0,2), p.getId());
+                pa = new ViewPassenger(new Circle(0,0,2), p.getId());
                 break;
             case Cross:
-                pa = new Passenger(new Cross(0,0,0), p.getId());
+                pa = new ViewPassenger(new Cross(0,0,0), p.getId());
                 break;
             case Diamond:
-                pa = new Passenger(new Diamond(0,0,0), p.getId());
+                pa = new ViewPassenger(new Diamond(0,0,0), p.getId());
                 break;
             case Lozenge:
-                pa = new Passenger(new Lozenge(0,0,0), p.getId());
+                pa = new ViewPassenger(new Lozenge(0,0,0), p.getId());
                 break;
             case Square:
-                pa = new Passenger(new Square(0,0,0), p.getId());
+                pa = new ViewPassenger(new Square(0,0,0), p.getId());
                 break;
         }
 
