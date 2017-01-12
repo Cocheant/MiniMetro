@@ -1,6 +1,7 @@
 package Model;
 
-import java.awt.*;
+import javafx.scene.paint.*;
+
 import java.util.ArrayList;
 
 /**
@@ -27,7 +28,7 @@ public class Line {
      */
     public Line(){
         this.id = 0;
-        this.col = Color.blue;
+        this.col = Color.BLUE;
         trains = new ArrayList<Train>();
         stops = new ArrayList<Station>();
     }
@@ -52,10 +53,12 @@ public class Line {
         this.trains.add(tr);
     }
 
+
     /**
      * adds a wagon to the first train of the line
      * @param wa the wagon to add
      */
+
     public void addWagon(Wagon wa){
         if(this.trains.get(0)!= null){
             this.trains.get(0).addWagon(wa);
@@ -66,6 +69,18 @@ public class Line {
         stops.add(s);
     }
 
+    public void setColor(Color col) {
+        this.col = col;
+    }
+
+    public void setTrains(ArrayList<Train> trains) {
+        this.trains = trains;
+    }
+
+    public Station getStopById(int Id){
+        return stops.get(Id);
+    }
+
     public ArrayList<Station> getStops() {
         return stops;
     }
@@ -73,4 +88,17 @@ public class Line {
     public ArrayList<Train> getTrains() {
         return trains;
     }
+
+    public Color getCol() {
+        return col;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getId(Station station){
+        return stops.lastIndexOf(station);
+    }
 }
+

@@ -2,6 +2,8 @@
 package View;
 
 import Controller.GameController;
+import Model.Coordinates;
+import Model.Game;
 import com.sun.prism.Image;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -28,6 +30,9 @@ public class Station<T extends Shape>{
     static double lastCoordX,lastCoordY;
 
     double xCenter,yCenter;
+
+    Model.Shape shape;
+
 
 
     EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
@@ -84,10 +89,13 @@ public class Station<T extends Shape>{
                String s1 = s.substring(0,index-1);
                String s2 = s.substring(index+1);
                System.out.println(s1 +"/"+s2);
+
+
                // let the source know whether the string was successfully
                // transferred and used
                //View.addElement(new MetroLine(Double.valueOf(s1),Double.valueOf(s2),xCenter,yCenter,Color.BLUEVIOLET));
                event.setDropCompleted(success);
+
            }
            event.consume();
         }
@@ -95,6 +103,7 @@ public class Station<T extends Shape>{
 
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
+
             System.out.println("onDragDetected");
             Dragboard db = t.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
@@ -108,6 +117,11 @@ public class Station<T extends Shape>{
         }
     };
 
+    EventHandler<MouseEvent> clickHandler = new EventHandler<MouseEvent>() {
+        public void handle(MouseEvent event) {
+            View.addStationToLine(xCenter,yCenter, shape);
+        }
+    };
 
     public Station(T t){
         this.t = t;
@@ -123,8 +137,31 @@ public class Station<T extends Shape>{
         this.t.setOnDragEntered(dragHandler);
         this.t.setOnDragExited(dragHandler);
         this.t.setOnDragOver(dragHandler);
+        this.t.setOnMouseClicked(clickHandler);
+
+        if(t.getClass().equals(Circle.class)){
+            shape = Model.Shape.Circle;
+        }
+        else if(t.getClass().equals(Square.class)){
+            shape = Model.Shape.Square;
+        }
+        else if(t.getClass().equals(EquilateralTriangle.class)){
+            shape = Model.Shape.Triangle;
+        }
+
+        if(t.getClass().equals(Diamond.class)){
+            shape = Model.Shape.Diamond;
+        }
+        if(t.getClass().equals(Cross.class)){
+            shape = Model.Shape.Cross;
+        }
+        if(t.getClass().equals(Lozenge.class)){
+            shape = Model.Shape.Lozenge;
+        }
 
     }
+
+
 
     public void setType(T t) { this.t = t; }
     public T getType() { return t; }
@@ -136,5 +173,8 @@ public class Station<T extends Shape>{
     }
     public String toString(){
         return t.toString();
+    }
+    public Model.Shape getShape() {
+        return shape;
     }
 }

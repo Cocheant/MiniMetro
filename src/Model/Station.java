@@ -5,13 +5,14 @@ package Model;
  */
 public class Station extends PassengerContainer {
 
+
     private Shape sh;
 
     private static int capacity = 20;
 
-    private static int id = 1 ;
+    private static int compteur = 0 ;
 
-
+    
     /**
      * Default constructor
      */
@@ -26,17 +27,17 @@ public class Station extends PassengerContainer {
      * @param id the id of the station
      * @param sh the shape of the station
      */
+
     public Station(Coordinates co, int id, Shape sh){
         super(co, id);
         this.sh = sh;
-        id ++;
+        compteur ++;
     }
     public Station(Coordinates co, Shape sh){
-        super(co, id);
-        id ++;
+        super(co, compteur +1);
+        compteur ++;
         this.sh = sh;
     }
-
 
     public void addPassenger(Passenger p) throws Exception {
         passengers.add(p);

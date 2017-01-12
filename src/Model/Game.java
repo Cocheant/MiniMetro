@@ -1,17 +1,20 @@
 package Model;
 
 import Controller.GameController;
+import javafx.scene.paint.*;
 import sun.reflect.annotation.ExceptionProxy;
 
-import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 /**
  * Created by hugo on 12/26/2016.
  */
+
 public class Game implements Runnable {
+
 
     private Clock cl;
 
@@ -55,6 +58,10 @@ public class Game implements Runnable {
 
     private StationGenerator stationGenerator;
 
+    Line blueLine ;
+    Line redLine;
+    Line greenLine;
+
     /**
      * Initializing constructor
      */
@@ -74,7 +81,15 @@ public class Game implements Runnable {
         //map = new Map();
 
         stations = new ArrayList<Station>();
+        lines = new ArrayList<Line>();
 
+        blueLine = new Line();
+        redLine = new Line();
+        greenLine = new Line();
+
+        lines.add(blueLine);
+        lines.add(redLine);
+        lines.add(greenLine);
 
         addStation(new Station(new Coordinates(10,10), Shape.Circle));
         addStation(new Station(new Coordinates(20,20), Shape.Circle));
@@ -83,6 +98,7 @@ public class Game implements Runnable {
         addStation(new Station(randomStationCoordinates(),Shape.Circle));
 
         stationGenerator = new StationGenerator(this,controller);
+
 
     }
 
@@ -287,5 +303,37 @@ public class Game implements Runnable {
 
     public ArrayList<Station> getStations() {
         return stations;
+    }
+
+    public void addStationToLine(Station station, Color color){
+
+        if(color == Color.TOMATO){
+
+            redLine.addStation(station);
+            int Id = redLine.getId(station);
+            if((redLine.getStopById(Id-1))!=null){
+                controller.addLineView((redLine.getStopById(Id-1)),station,color);
+            }
+        }
+
+        else if(color == Color.DEEPSKYBLUE){
+
+            blueLine.addStation(station);
+            int Id = blueLine.getId(station);
+            if((blueLine.getStopById(Id-1))!=null){
+                controller.addLineView((blueLine.getStopById(Id-1)),station,color);
+            }
+
+        }
+
+        else if(color == Color.LIMEGREEN){
+
+            greenLine.addStation(station);
+            int Id = greenLine.getId(station);
+            if((greenLine.getStopById(Id-1))!=null){
+                controller.addLineView((greenLine.getStopById(Id-1)),station,color);
+            }
+        }
+
     }
 }

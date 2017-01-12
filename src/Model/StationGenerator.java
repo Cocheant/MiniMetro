@@ -64,6 +64,7 @@ public class StationGenerator extends Thread{
                 misplaced = true;
             }
         }
+
         return misplaced;
     }
 

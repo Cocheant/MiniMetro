@@ -18,6 +18,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
@@ -55,41 +56,21 @@ public class GameController implements Runnable {
 
     public void addViewStation(Model.Station station){
 
-        Coordinates c = station.getCo();
+        view.addStation(toViewStation(station));
 
-        switch(station.getShape()){
+    }
 
-            case Circle:
-                Station<Circle> circleStation = new Station(new Circle(c.getX(),c.getY() , stationSize/2));
-                view.addStation(circleStation);
-                break;
+    public void addStationToLine(Coordinates co, Shape sh , Color selected){
 
-            case Square:
-                Station<Square> squareStation = new Station(new Square(c.getX(),c.getY() , stationSize));
-                view.addStation(squareStation);
-                break;
+        game.addStationToLine(new Model.Station(co, sh), selected);
+    }
 
-            case Triangle:
-                Station<EquilateralTriangle> triangleStation = new Station(new EquilateralTriangle(c.getX(),c.getY() , stationSize));
-                view.addStation(triangleStation);
-               break;
+    public void addLineView(Model.Station first, Model.Station second , Color color){
 
-            case Diamond:
-                Station<Diamond> diamondStation = new Station(new Diamond(c.getX(),c.getY() , stationSize));
-                view.addStation(diamondStation);
-                break;
+        Station firstView = toViewStation(first);
+        Station secondView = toViewStation(second);
 
-            case Cross:
-                Station<Cross> crossStation = new Station(new Cross(c.getX(),c.getY() , stationSize));
-                view.addStation(crossStation);
-                break;
-
-            case Lozenge:
-                Station<Lozenge> lozengeStation = new Station(new Lozenge(c.getX(),c.getY() , stationSize));
-                view.addStation(lozengeStation);
-                break;
-        }
-
+        view.printLine(firstView,secondView,color);
     }
 
     public void updateClock(){
@@ -99,6 +80,43 @@ public class GameController implements Runnable {
 
         vCl.update(mCl.getHours(), mCl.getDay());
     }
+
+    private Station toViewStation (Model.Station station){
+
+        Coordinates c = station.getCo();
+        switch(station.getShape()){
+
+            case Circle:
+                Station<Circle> circleStation = new Station(new Circle(c.getX(),c.getY() , stationSize/2));
+                return circleStation;
+
+            case Square:
+                Station<Square> squareStation = new Station(new Square(c.getX(),c.getY() , stationSize));
+                return(squareStation);
+
+            case Triangle:
+                Station<EquilateralTriangle> triangleStation = new Station(new EquilateralTriangle(c.getX(),c.getY() , stationSize));
+                return(triangleStation);
+
+            case Diamond:
+                Station<Diamond> diamondStation = new Station(new Diamond(c.getX(),c.getY() , stationSize));
+                return(diamondStation);
+
+            case Cross:
+                Station<Cross> crossStation = new Station(new Cross(c.getX(),c.getY() , stationSize));
+                return(crossStation);
+
+            case Lozenge:
+                Station<Lozenge> lozengeStation = new Station(new Lozenge(c.getX(),c.getY() , stationSize));
+                return(lozengeStation);
+
+        }
+        return null;
+    }
+
+    /*public deleteLine(Object object){
+        game.removeStationFromLine
+    }*/
 
 }
 
