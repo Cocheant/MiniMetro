@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.util.*;
 
 /**
  * Created by hugo on 12/23/2016.
@@ -18,20 +19,24 @@ public enum Shape {
 
     private final int number;
 
-
-     Shape(int number){
+    Shape(int number){
         this.number = number;
     }
 
-    private static Shape[] vals = values();
-    public Shape next()
+    /*static public Shape set(int i)
     {
-        return vals[(this.ordinal()+1) % vals.length];
-    }
+        return vals[i % SIZE];
+    }*/
 
-    static public Shape set(int i)
-    {
-        return vals[i % vals.length];
+    private static List<Shape> vals = Collections.unmodifiableList(Arrays.asList(values()));
+
+    private static final int SIZE = vals.size();
+
+    private static final Random RANDOM = new Random();
+
+
+    public static Shape randomShape(){
+        return vals.get(RANDOM.nextInt(SIZE));
     }
 
 

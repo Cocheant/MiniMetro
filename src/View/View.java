@@ -27,6 +27,8 @@ public class View implements Runnable {
 
     private GameController controller;
 
+
+
     Scene scene;
 
     private static Group root ;
@@ -121,10 +123,15 @@ public class View implements Runnable {
 
     public static void addStation(Station s){
         stations.add(s);
+        addElement(s.getType());
     }
 
-    public static void addElement(Node n){
-        root.getChildren().add(n);
+    static void addElement(final Node n){
+        Platform.runLater(new Runnable() {
+            public void run() {
+                root.getChildren().add(n);
+            }
+        });
     }
 
     public static void deleteElement(Node n){

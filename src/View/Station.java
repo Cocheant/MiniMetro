@@ -55,9 +55,9 @@ public class Station<T extends Shape>{
                    }
 
                    View.addElement(new MetroLine(lastCoordX,lastCoordY,getCenterX(),getCenterY(),Color.BLUEVIOLET));
-                  lastCoordX = getCenterX();
-                  lastCoordY = getCenterY();
+                   lastCoordX = getCenterX();
 
+                   lastCoordY = getCenterY();
 
                }
            }

@@ -19,7 +19,6 @@ import javafx.stage.WindowEvent;
 public class main extends Application {
 
 
-
     Group root = new Group();
 
     private final double widthWindow = 1024.0;
@@ -27,8 +26,6 @@ public class main extends Application {
     private final double stationSize = 15 ;
 
     StationGenerator stationGenerator;
-
-
 
     public static void main(String[] args) {
         launch(args);
@@ -48,7 +45,7 @@ public class main extends Application {
         controller.run();
         view.run();
 
-        stationGenerator = new StationGenerator(view);
+        stationGenerator = new StationGenerator(game,controller);
         stationGenerator.start();
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -59,8 +56,6 @@ public class main extends Application {
 
             }
         });
-
-
 
     }
 }
