@@ -2,8 +2,7 @@
 package View;
 
 import Controller.GameController;
-import Model.Coordinates;
-import Model.Game;
+import Model.*;
 import com.sun.prism.Image;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -15,6 +14,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 import javafx.scene.shape.Shape;
+
+import java.util.ArrayList;
 
 import static javafx.scene.input.DragEvent.DRAG_ENTERED;
 
@@ -31,8 +32,7 @@ public class Station<T extends Shape>{
 
     double xCenter,yCenter;
 
-    Model.Shape shape;
-
+    private ArrayList<Passenger> passengers;
 
 
     EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
@@ -159,6 +159,8 @@ public class Station<T extends Shape>{
             shape = Model.Shape.Lozenge;
         }
 
+
+        this.passengers = new ArrayList<Passenger>();
     }
 
 
@@ -176,5 +178,13 @@ public class Station<T extends Shape>{
     }
     public Model.Shape getShape() {
         return shape;
+    }
+
+    public void addPassenger(Passenger p){
+        this.passengers.add(p);
+    }
+
+    public void removePassenger(Passenger p){
+        this.passengers.remove(p);
     }
 }
