@@ -13,7 +13,7 @@ import java.util.Random;
  */
 public class Game implements Runnable {
 
-    private Clock cl = new Clock();
+    private Clock cl;
 
     public Clock getCl() {
         return cl;
@@ -59,7 +59,7 @@ public class Game implements Runnable {
     public Game(GameController controller){
 
         this.controller = controller;
-
+        this.cl = new Clock(controller);
 
         countPassengers = 0;
         availableLines = 3;
@@ -83,6 +83,7 @@ public class Game implements Runnable {
     }
 
     public void run() {
+        cl.start();
 
     }
 

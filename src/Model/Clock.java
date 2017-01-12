@@ -1,12 +1,13 @@
 package Model;
 
+import Controller.GameController;
 import View.Day;
 import javafx.scene.text.Font;
 
 /**
  * Created by hugo on 12/20/2016.
  */
-public class Clock implements Runnable {
+public class Clock extends Thread {
 
     private int hours = 0;
 
@@ -21,32 +22,35 @@ public class Clock implements Runnable {
     }
 
     //private boolean running = true;
-    private Thread clockThread;
     private int millisSpeed = 1000;
+
+    private GameController controller;
 
 
     public void run() {
-        try{
-            Thread.sleep(millisSpeed);
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-
-        if (hours < 23){
-            hours ++;
-        }else{
-            hours = 0;
-
-            if(day.ordinal() < 7){
-                day = day.next();
-            }else{
-                day = Day.Monday;
+        while(true){
+            try{
+                Thread.sleep(millisSpeed);
+            }catch (Exception e){
+                System.out.println(e.getMessage());
             }
-        }
 
+            if (hours < 23){
+                hours ++;
+            }else{
+                hours = 0;
+
+                if(day.ordinal() < 7){
+                    day = day.next();
+                }else{
+                    day = Day.Monday;
+                }
+            }
+            controller.updateClock();
+        }
     }
 
-    public Clock(){
+    public Clock(GameController controller){
         //super(""+0);
 
         //this.setFont(new Font(30));
@@ -55,8 +59,8 @@ public class Clock implements Runnable {
         //this.textProperty().bind(task.messageProperty());
 
         //clockThread = new Thread(task);
-        clockThread = new Thread();
-        clockThread.setDaemon(true);    }
+        this.controller = controller;
+    }
 
     public Clock(int hours){
         //super(""+hours);
@@ -66,24 +70,13 @@ public class Clock implements Runnable {
 
 
         //clockThread = new Thread(task);
-        clockThread.setDaemon(true);
+        this.setDaemon(true);
     }
 
     public void setValue(int time){
         hours = time;
     }
 
-    public void start(){
-        //running = true;
-        //this.textProperty().bind(task.messageProperty());
-        clockThread.start();
-    }
-
-    public void stop(){
-        //running = false;
-        clockThread.interrupt();
-        //this.textProperty().unbind();
-    }
 
     public boolean status(){
         //return clockThread.isAlive()&&this.textProperty().isBound();

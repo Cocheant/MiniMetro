@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 import View.View;
 
-import static com.sun.tools.doclint.Entity.or;
 
 /**
  * Created by Toinecoch on 9/1/17.

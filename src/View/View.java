@@ -27,7 +27,7 @@ public class View implements Runnable {
 
     private GameController controller;
 
-    private Clock clock;
+    private Clock clock = new Clock();
 
     public Clock getClock() {
         return clock;
@@ -69,7 +69,6 @@ public class View implements Runnable {
 
 
 
-        clock = new Clock();
         clock.setPosition(widthWindow - 150, 5);
         /*clock.setPosition(widthWindow - 150, 5);
         clock.start();

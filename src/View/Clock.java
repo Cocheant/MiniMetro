@@ -1,5 +1,6 @@
 package View;
 
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.scene.control.Label;
 
@@ -19,8 +20,12 @@ public class Clock extends Label{
         update(0,Day.Monday);
     }
 
-    public void update(int hours, Day day){
-        this.setText(hours+":00"+"\n"  + day );
+    public void update(final int hours, final Day day){
+        Platform.runLater(new Runnable() {
+            public void run() {
+                setText(hours+":00"+"\n"  + day );
+            }
+        });
     }
 
     public void setPosition(double x, double y){
