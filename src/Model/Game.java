@@ -119,15 +119,13 @@ public class Game implements Runnable {
      */
      public void randomStationAdd(Passenger p){
         int randomNum = rand.nextInt(stations.size());
+        Station s = this.stations.get(randomNum);
         try{
-            this.stations.get(randomNum).addPassenger(p);
+            s.addPassenger(p);
         }catch (Exception e){
             // TODO : START FILLED STATION TIMER
         }finally {
-            /**
-             * TODO
-             */
-            //controller.addPassengerToStation();
+            controller.addViewPassengerToStation(p, s);
         }
 
     }

@@ -5,7 +5,7 @@ import java.lang.Math;
 /**
  * Created by hugo on 12/23/2016.
  */
-public class Coordinates<T> {
+public class Coordinates {
 
     private double x;
     private double y;
@@ -59,5 +59,9 @@ public class Coordinates<T> {
         res += Math.pow((this.x - co.getX()),2);
         res += Math.pow((this.y - co.getY()), 2);
         return (Math.sqrt(res));
+    }
+
+    public boolean equals(Coordinates co){
+        return ( (this.x == co.getX()) && (this.y == co.getY()) );
     }
 }

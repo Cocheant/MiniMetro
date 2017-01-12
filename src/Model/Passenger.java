@@ -6,8 +6,12 @@ package Model;
 public class Passenger {
 
     private Shape sh;
+    public Shape getSh(){
+        return sh;
+    }
 
     private int id;
+    public int getId(){return this.id;}
 
     private static int counter = 1;
     /**

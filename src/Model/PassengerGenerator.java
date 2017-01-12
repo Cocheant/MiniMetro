@@ -40,7 +40,6 @@ public class PassengerGenerator extends Thread {
             }
             Passenger p = createPassenger();
             game.randomStationAdd(p);
-
         }
     }
 
