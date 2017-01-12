@@ -9,21 +9,23 @@ public class Passenger {
 
     private int id;
 
+    private static int counter = 1;
     /**
      * Default constructor
      */
     public Passenger(){
         this.sh = Shape.Circle;
-        this.id = 0;
+        this.id = this.counter;
+        this.counter ++;
     }
 
     /**
      * Initialising constructor
      * @param sh the shape of the passenger
-     * @param id the id of the passenger
      */
-    public Passenger(Shape sh, int id){
+    public Passenger(Shape sh){
         this.sh = sh;
-        this.id = id;
+        this.id = this.counter;
+        this.counter ++;
     }
 }

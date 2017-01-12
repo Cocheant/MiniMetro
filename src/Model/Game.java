@@ -54,6 +54,7 @@ public class Game implements Runnable {
     private GameController controller;
 
     private StationGenerator stationGenerator;
+    private PassengerGenerator passengerGenerator;
 
     /**
      * Initializing constructor
@@ -83,12 +84,14 @@ public class Game implements Runnable {
         addStation(new Station(randomStationCoordinates(),Shape.Circle));
 
         stationGenerator = new StationGenerator(this,controller);
+        passengerGenerator = new PassengerGenerator(this, controller);
 
     }
 
     public void run() {
         cl.start();
         stationGenerator.start();
+        passengerGenerator.start();
     }
 
     public void start(){
@@ -114,12 +117,17 @@ public class Game implements Runnable {
      * Adds a passenger to a random station
      * @param p the passenger to add
      */
-    private void randomStationAdd(Passenger p){
+     public void randomStationAdd(Passenger p){
         int randomNum = rand.nextInt(stations.size());
         try{
             this.stations.get(randomNum).addPassenger(p);
         }catch (Exception e){
             // TODO : START FILLED STATION TIMER
+        }finally {
+            /**
+             * TODO
+             */
+            //controller.addPassengerToStation();
         }
 
     }
@@ -133,18 +141,6 @@ public class Game implements Runnable {
             RandCoord.setY( stationSize + (int)(Math.random() * (heightWindow - stationSize)) );
         }
         return RandCoord;
-    }
-
-    /**
-     * Creates a new passenger
-     * @param sh the shape of the passenger
-     */
-    private void addPassenger(Shape sh){
-        int id = countPassengers;
-        Passenger p = new Passenger(sh, id);
-        this.passengers.add(p);
-        randomStationAdd(p);
-        this.countPassengers ++;
     }
 
     /**
