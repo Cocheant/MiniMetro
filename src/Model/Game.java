@@ -13,7 +13,11 @@ import java.util.Random;
  */
 public class Game implements Runnable {
 
-    private Clock cl;
+    private Clock cl = new Clock();
+
+    public Clock getCl() {
+        return cl;
+    }
 
     private Map map;
 

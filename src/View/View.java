@@ -27,7 +27,11 @@ public class View implements Runnable {
 
     private GameController controller;
 
+    private Clock clock;
 
+    public Clock getClock() {
+        return clock;
+    }
 
     Scene scene;
 
@@ -65,9 +69,10 @@ public class View implements Runnable {
 
 
 
-        Clock clock = new Clock();
-        clock.setPosition(widthWindow - 150, 5);
+        clock = new Clock();
+        /*clock.setPosition(widthWindow - 150, 5);
         clock.start();
+        */
 
         stations = new ArrayList<Station>();
 

@@ -93,5 +93,13 @@ public class GameController implements Runnable {
 
     }
 
+    public void updateClock(){
+        Model.Clock mCl = this.game.getCl();
+
+        Clock vCl = this.view.getClock();
+
+        vCl.update(mCl.getHours(), mCl.getDay());
+    }
+
 }
 
