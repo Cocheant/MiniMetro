@@ -4,6 +4,7 @@ package View;
 import Controller.GameController;
 import com.sun.prism.Image;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
@@ -85,7 +86,7 @@ public class Station<T extends Shape>{
                System.out.println(s1 +"/"+s2);
                // let the source know whether the string was successfully
                // transferred and used
-               View.addElement(new MetroLine(Double.valueOf(s1),Double.valueOf(s2),xCenter,yCenter,Color.BLUEVIOLET));
+               //View.addElement(new MetroLine(Double.valueOf(s1),Double.valueOf(s2),xCenter,yCenter,Color.BLUEVIOLET));
                event.setDropCompleted(success);
            }
            event.consume();
@@ -122,6 +123,7 @@ public class Station<T extends Shape>{
         this.t.setOnDragEntered(dragHandler);
         this.t.setOnDragExited(dragHandler);
         this.t.setOnDragOver(dragHandler);
+
     }
 
     public void setType(T t) { this.t = t; }

@@ -72,6 +72,7 @@ public class StationGenerator extends Thread{
         double x;
         double y;
 
+
         do {
             x =  stationSize + (Math.random() * (widthWindow -  stationSize));
             y = stationSize + (Math.random() * (heightWindow -  stationSize));

@@ -47,6 +47,7 @@ public class main extends Application {
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent event) {
+
                 //stationGenerator.exitLoop();
                 //stationGenerator.interrupt();
                 Platform.exit();

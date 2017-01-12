@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
  *
  * Class to define the view of the clock.
  */
+
 public class Clock extends Label{
 
     public Clock(){

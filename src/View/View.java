@@ -13,11 +13,11 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-
 import java.util.ArrayList;
 
 /**
@@ -41,6 +41,7 @@ public class View implements Runnable {
     private double widthWindow = 1024;
     private double heightWindow = 600;
     final double stationSize = 15 ;
+    double vitesseTrain = 0.13;
 
     Stage primaryStage;
 
@@ -63,13 +64,15 @@ public class View implements Runnable {
 
         Line red = new Line();
 
-        double vitesseTrain = 0.5;
+
 
         Canvas canvas = new Canvas(widthWindow,heightWindow);
 
 
-
+        clock = new Clock();
         clock.setPosition(widthWindow - 150, 5);
+
+
         /*clock.setPosition(widthWindow - 150, 5);
         clock.start();
         */
@@ -87,15 +90,17 @@ public class View implements Runnable {
 
 
 
-
         Rectangle transport = new Rectangle(triangleStation.getCenterX(),triangleStation.getCenterY(),15,8);
 
         triangleStation.getType().toBack();
         circleStation.getType().toBack();
 
-
+        Train train = new Train(triangleStation.getCenterX(),triangleStation.getCenterY(),15);
+        train.setColor(Color.BLUE);
 
         Path path = new Path();
+        path.setStroke(Color.BLUE);
+        path.setStrokeWidth(2);
         path.getElements().add(new MoveTo(triangleStation.getCenterX(),triangleStation.getCenterY()));
         PathTransition pathTransition = new PathTransition();
         path.getElements().add(new LineTo(triangleStation.getCenterX(),triangleStation.getCenterY()));
@@ -106,14 +111,14 @@ public class View implements Runnable {
 
 
         pathTransition.setPath(path);
-        pathTransition.setNode(transport);
+        pathTransition.setNode(train);
 
         pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
         pathTransition.setCycleCount(Timeline.INDEFINITE);
         pathTransition.setAutoReverse(true);
         pathTransition.play();
 
-        root.getChildren().addAll( canvas, clock,triangleStation.getType(), circleStation.getType(),transport,path, squareStation.getType());
+        root.getChildren().addAll( canvas, clock,triangleStation.getType(), circleStation.getType(),train,path, squareStation.getType());
 
         scene = new Scene(root, widthWindow, heightWindow);
         primaryStage.setTitle("Mini Metro!");
