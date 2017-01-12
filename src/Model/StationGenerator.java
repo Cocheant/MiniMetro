@@ -80,7 +80,7 @@ public class StationGenerator extends Thread{
         return new Coordinates((int)x,(int)y);
     }
 
-    private Model.Station RandomStation(){
+    public Model.Station RandomStation(){
 
         Shape s = Shape.randomShape();
         Coordinates c = randCoord();

@@ -26,7 +26,6 @@ public class Clock extends Thread {
 
     private GameController controller;
 
-
     public void run() {
         while(true){
             try{

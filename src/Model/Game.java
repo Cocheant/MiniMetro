@@ -53,6 +53,8 @@ public class Game implements Runnable {
 
     private GameController controller;
 
+    private StationGenerator stationGenerator;
+
     /**
      * Initializing constructor
      */
@@ -80,11 +82,13 @@ public class Game implements Runnable {
 
         addStation(new Station(randomStationCoordinates(),Shape.Circle));
 
+        stationGenerator = new StationGenerator(this,controller);
+
     }
 
     public void run() {
         cl.start();
-
+        stationGenerator.start();
     }
 
     public void start(){

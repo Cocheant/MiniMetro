@@ -45,13 +45,10 @@ public class main extends Application {
         controller.run();
         view.run();
 
-        stationGenerator = new StationGenerator(game,controller);
-        stationGenerator.start();
-
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent event) {
-                stationGenerator.exitLoop();
-                stationGenerator.interrupt();
+                //stationGenerator.exitLoop();
+                //stationGenerator.interrupt();
                 Platform.exit();
 
             }

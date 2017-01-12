@@ -55,7 +55,7 @@ public class View implements Runnable {
         this.heightWindow = height;
         this.root = root;
         this.primaryStage = primaryStage;
-
+        this.stations = new ArrayList<Station>();
     }
 
 
@@ -74,7 +74,7 @@ public class View implements Runnable {
         clock.start();
         */
 
-        stations = new ArrayList<Station>();
+        //stations = new ArrayList<Station>();
 
         Station<EquilateralTriangle> triangleStation = new Station(new EquilateralTriangle(400,400 , stationSize));
         stations.add(triangleStation);
