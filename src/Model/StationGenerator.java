@@ -20,7 +20,7 @@ public class StationGenerator extends Thread{
     final double widthWindow = 1024;
     final double heightWindow = 600;
     final double stationSize = 15 ;
-    final int stationRate = 3000;
+    final int stationRate = 10000;
     private ArrayList<Station> stations;
 
     View view ;

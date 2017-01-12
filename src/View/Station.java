@@ -14,9 +14,11 @@ import javafx.scene.shape.Shape;
 
 import static javafx.scene.input.DragEvent.DRAG_ENTERED;
 
+
 /**
  * Created by Toinecoch on 20/12/16.
  */
+
 public class Station<T extends Shape>{
 
     T t;
@@ -29,8 +31,6 @@ public class Station<T extends Shape>{
     EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
 
         public void handle(final DragEvent event) {
-
-
 
            if(event.getEventType() == DragEvent.DRAG_ENTERED) {
                System.out.println("DRAG_ENTERED");
@@ -118,7 +118,6 @@ public class Station<T extends Shape>{
         this.t.setStrokeWidth(2);
 
         this.t.setOnDragDetected(mouseHandler);
-
         this.t.setOnDragDone(dragHandler);
         this.t.setOnDragDropped(dragHandler);
         this.t.setOnDragEntered(dragHandler);

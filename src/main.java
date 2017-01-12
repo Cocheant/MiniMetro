@@ -28,7 +28,7 @@ public class main extends Application {
 
     StationGenerator stationGenerator;
 
-    Scene scene;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -37,24 +37,19 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-
         GameController controller = new GameController();
 
         Game game = new Game(controller);
         controller.setGame(game);
-        View view = new View(controller, widthWindow, heightWindow, root);
+        View view = new View(controller, widthWindow, heightWindow, root, primaryStage);
         controller.setView(view);
-
 
         game.run();
         controller.run();
         view.run();
 
-        scene = new Scene(root, widthWindow, heightWindow);
         stationGenerator = new StationGenerator(view);
         stationGenerator.start();
-        primaryStage.setTitle("Mini Metro!");
-        primaryStage.setScene(scene);
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent event) {
@@ -65,7 +60,7 @@ public class main extends Application {
             }
         });
 
-        primaryStage.show();
+
 
     }
 }
