@@ -32,6 +32,8 @@ public class Station<T extends Shape>{
 
     double xCenter,yCenter;
 
+    Model.Shape shape;
+
     private ArrayList<Passenger> passengers;
 
 
