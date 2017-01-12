@@ -9,14 +9,23 @@ import javafx.scene.text.Font;
 public class Clock implements Runnable {
 
     private int hours = 0;
+
+    public int getHours() {
+        return hours;
+    }
+
     private Day day = Day.Monday;
+
+    public Day getDay() {
+        return day;
+    }
+
     //private boolean running = true;
     private Thread clockThread;
     private int millisSpeed = 1000;
 
 
     public void run() {
-
         try{
             Thread.sleep(millisSpeed);
         }catch (Exception e){

@@ -15,12 +15,13 @@ import javafx.scene.text.Font;
 public class Clock extends Label{
 
     public Clock(){
-
+        this.setFont(new Font (30));
     }
 
-    public void update(){
-
+    public void update(int hours, Day day){
+        this.setText(hours+":00"+"\n"  + day );
     }
+
 
 /*
     private int hours = 0;
