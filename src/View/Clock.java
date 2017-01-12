@@ -16,10 +16,16 @@ public class Clock extends Label{
 
     public Clock(){
         this.setFont(new Font (30));
+        update(0,Day.Monday);
     }
 
     public void update(int hours, Day day){
         this.setText(hours+":00"+"\n"  + day );
+    }
+
+    public void setPosition(double x, double y){
+        this.setTranslateX(x);
+        this.setTranslateY(y);
     }
 
 

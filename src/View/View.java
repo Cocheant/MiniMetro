@@ -70,6 +70,7 @@ public class View implements Runnable {
 
 
         clock = new Clock();
+        clock.setPosition(widthWindow - 150, 5);
         /*clock.setPosition(widthWindow - 150, 5);
         clock.start();
         */

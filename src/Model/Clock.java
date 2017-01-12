@@ -55,6 +55,7 @@ public class Clock implements Runnable {
         //this.textProperty().bind(task.messageProperty());
 
         //clockThread = new Thread(task);
+        clockThread = new Thread();
         clockThread.setDaemon(true);    }
 
     public Clock(int hours){
