@@ -37,7 +37,6 @@ public class GameController implements Runnable {
 
     private View view;
 
-
     public GameController(){
 
     }

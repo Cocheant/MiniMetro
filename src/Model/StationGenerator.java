@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import View.View;
 
+import static com.sun.tools.doclint.Entity.or;
+
 /**
  * Created by Toinecoch on 9/1/17.
  */
@@ -70,10 +72,11 @@ public class StationGenerator extends Thread{
 
         double x;
         double y;
+
         do {
             x =  stationSize + (Math.random() * (widthWindow -  stationSize));
             y = stationSize + (Math.random() * (heightWindow -  stationSize));
-        } while(isMisplaced(x,y));
+        } while(isMisplaced(x,y) && running );
 
         return new Coordinates((int)x,(int)y);
     }

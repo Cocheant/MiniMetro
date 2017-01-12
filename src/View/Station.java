@@ -1,3 +1,4 @@
+
 package View;
 
 import Controller.GameController;
@@ -23,7 +24,7 @@ public class Station<T extends Shape>{
 
     T t;
 
-    double lastCoordX,lastCoordY;
+    static double lastCoordX,lastCoordY;
 
     double xCenter,yCenter;
 
@@ -55,6 +56,7 @@ public class Station<T extends Shape>{
                    }
 
                    View.addElement(new MetroLine(lastCoordX,lastCoordY,getCenterX(),getCenterY(),Color.BLUEVIOLET));
+
                    lastCoordX = getCenterX();
 
                    lastCoordY = getCenterY();
@@ -84,14 +86,11 @@ public class Station<T extends Shape>{
                // let the source know whether the string was successfully
                // transferred and used
                View.addElement(new MetroLine(Double.valueOf(s1),Double.valueOf(s2),xCenter,yCenter,Color.BLUEVIOLET));
-
                event.setDropCompleted(success);
-
            }
            event.consume();
         }
     };
-
 
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
