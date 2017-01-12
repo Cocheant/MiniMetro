@@ -2,6 +2,7 @@
 package Controller;
 
 import Model.Game;
+import Model.Shape;
 import Model.StationGenerator;
 import Model.*;
 import View.*;

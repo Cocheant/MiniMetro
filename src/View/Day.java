@@ -11,7 +11,9 @@ public enum Day {
     Day(int number){
         this.number = number;
     }
+
     private static Day[] vals = values();
+
     public Day next()
     {
         return vals[(this.ordinal()+1) % vals.length];

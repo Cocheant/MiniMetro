@@ -20,7 +20,7 @@ public class Station extends PassengerContainer {
     }
 
     /**
-     * Initialising constructo
+     * Initialising constructor
      * @param co the coordinates of the station
      * @param id the id of the station
      * @param sh the shape of the station

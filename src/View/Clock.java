@@ -14,6 +14,15 @@ import javafx.scene.text.Font;
  */
 public class Clock extends Label{
 
+    public Clock(){
+
+    }
+
+    public void update(){
+
+    }
+
+/*
     private int hours = 0;
     private Day day = Day.Monday;
     boolean running=true;
@@ -102,5 +111,5 @@ public class Clock extends Label{
     public void setSpeed(int millis){
         if(millis > 0 )  this.millisSpeed = millis;
     }
-
+*/
 }
