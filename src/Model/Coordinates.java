@@ -64,4 +64,8 @@ public class Coordinates {
     public boolean equals(Coordinates co){
         return ( (this.x == co.getX()) && (this.y == co.getY()) );
     }
+
+    public String toString(){
+        return("(X : "+this.x+"| Y : "+this.y+")");
+    }
 }

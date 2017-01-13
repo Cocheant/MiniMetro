@@ -137,13 +137,14 @@ public class GameController implements Runnable {
 
         Coordinates co = s.getCo();
 
-        for(Station st : view.getStations()){
-            Coordinates co2 = new Coordinates(st.getCenterX(), st.getCenterY());
-            if(co.equals(co2)){
-                st.addPassenger(pa);
+        if(view.getStations()!= null){
+            for(Station st : view.getStations()){
+                Coordinates co2 = new Coordinates(st.getCenterX(), st.getCenterY());
+                if(co.equals(co2)){
+                    st.addPassenger(pa);
+                }
             }
         }
-
     }
 }
 

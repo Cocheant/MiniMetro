@@ -200,7 +200,8 @@ public class View implements Runnable {
 
     public static void addStation(Station s){
         stations.add(s);
-        addElement(s.getType());
+        addElement(s.getGroup());
+        //addElement(s.getType());
     }
 
     static void addElement(final Node n){

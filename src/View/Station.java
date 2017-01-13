@@ -4,6 +4,7 @@ package View;
 import Controller.GameController;
 import Model.*;
 import com.sun.prism.Image;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -12,6 +13,8 @@ import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
+
+import javafx.scene.Group;
 
 import javafx.scene.shape.Shape;
 
@@ -24,9 +27,12 @@ import static javafx.scene.input.DragEvent.DRAG_ENTERED;
  * Created by Toinecoch on 20/12/16.
  */
 
-public class Station<T extends Shape>{
+public class Station<T extends Shape> {
 
     T t;
+
+    private Group group;
+    public Group getGroup(){ return this.group;}
 
     static double lastCoordX,lastCoordY;
 
@@ -126,6 +132,8 @@ public class Station<T extends Shape>{
     };
 
     public Station(T t){
+        this.group = new Group();
+
         this.t = t;
         xCenter = (t.getLayoutBounds().getMaxX() + t.getLayoutBounds().getMinX())/2;
         yCenter = (t.getLayoutBounds().getMaxY() + t.getLayoutBounds().getMinY())/2;
@@ -182,11 +190,21 @@ public class Station<T extends Shape>{
         return shape;
     }
 
-    public void addPassenger(ViewPassenger p){
+    public void addPassenger(final ViewPassenger p){
         this.passengers.add(p);
+        Platform.runLater(new Runnable() {
+            public void run() {
+                group.getChildren().add(p.getType());
+            }
+        });
     }
 
     public void removePassenger(ViewPassenger p){
         this.passengers.remove(p);
+        this.group.getChildren().clear();
+
+        for(ViewPassenger temp : this.passengers){
+            this.group.getChildren().add(temp.getType());
+        }
     }
 }
