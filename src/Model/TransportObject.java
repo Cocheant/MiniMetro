@@ -32,7 +32,12 @@ public abstract class TransportObject extends PassengerContainer {
         }
     }
 
-    public void move(int x, int y){
+    public void move(double x, double y){
         this.co.move(x,y);
+    }
+
+    public void moveTo(double x, double y){
+        this.co.setX(x);
+        this.co.setY(y);
     }
 }

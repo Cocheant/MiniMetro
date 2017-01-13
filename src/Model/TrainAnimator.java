@@ -2,8 +2,10 @@ package Model;
 
 import View.View;
 import com.sun.javafx.collections.ArrayListenerHelper;
+import sun.plugin2.message.CookieOpMessage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Created by Toinecoch on 13/1/17.
@@ -11,13 +13,10 @@ import java.util.ArrayList;
 public class TrainAnimator extends Thread {
 
     ArrayList<Line> lines;
-    ArrayList<Train> trains;
 
 
     public TrainAnimator(ArrayList<Line> lines){
         this.lines = lines;
-        this.trains = trains;
-
     }
 
     public void run(){
@@ -29,26 +28,46 @@ public class TrainAnimator extends Thread {
 
 
         for(Line l : lines) {
-                if (!l.getTrains().isEmpty()){
+            ArrayList<Station> stops = l.getStops();
+            if (!l.getTrains().isEmpty()){
                 for (Train t : l.getTrains()) {
+                    double nextX, nextY;
 
-                    double nextX,nextY;
-                    double a;
+                    if(t.getNeedNewVector()){
+                        t.calculateVector();
+                    }
 
-                    Coordinates nextStCo = t.getNextStation().getCo();
-                    Coordinates trainCo= t.getCo();
-                    a = (nextStCo.getY() - trainCo.getY() )/(nextStCo.getX() - trainCo.getX());
+                    nextX = (t.getCo().getX() + t.getSpeedX());
+                    nextY = (t.getCo().getY() + t.getSpeedX()*t.getVector());
 
-                    if (t.getDiection()) {
+                    t.moveTo(nextX, nextY);
 
-                        nextX = trainCo.getX() + 3;
-                        nextY = trainCo.getY() + a* 3;
+                    /**
+                     * IF THE TRAIN ARRIVES AT A STATION, CHECKS FOR THE NEXT STATION & UNLOADS/LOADS PASSENGERS
+                     */
+                    Coordinates co = new Coordinates(nextX, nextY);
+                    if(co.equals(t.getNextStation())){
+                        Iterator<Station> it = stops.iterator();
 
+                        while(!(it.equals(t.getNextStation()))){
+                            it.next();
+                        }
 
-                    } else {
+                        if(it.hasNext()){
+                            Station temp = it.next();
+                            t.setCurrentStation(t.getNextStation());
+                            t.setNextStation(temp);
+                        }else{
+                            Station temp = t.getCurrentStation();
+                            t.setCurrentStation(t.getNextStation());
+                            t.setNextStation(temp);
+                            t.changeDirection();
 
-                        nextX = trainCo.getX() - 3;
-                        nextY = trainCo.getY() - a* 3;
+                        }
+
+                        t.unload();
+                        t.load();
+
 
                     }
 
@@ -58,6 +77,7 @@ public class TrainAnimator extends Thread {
         }
 
     }
+
 
 
 }

@@ -9,7 +9,14 @@ public class Train extends TransportObject {
 
     private boolean direction;
 
-    Station nextStation;
+    private Station nextStation;
+    private Station currentStation;
+    private boolean needNewVector;
+    private double vector;
+    private double speedX;
+
+    private static final double speed = 50;
+
 
     /**
      * all the wagons attached to the end of the train
@@ -21,13 +28,20 @@ public class Train extends TransportObject {
      */
     public Train(){
         super();
-        direction = true;
+        this.direction = true;
+        this.nextStation = null;
+        this.currentStation = null;
+        this.needNewVector = true;
+        this.vector = 0;
+        this.speedX = 0;
     }
 
-    public Train(Station next){
+    public Train(Station next, Station curr){
         super();
         direction = true;
         this.nextStation = next;
+        this.currentStation = curr;
+        this.calculateVector();
     }
 
     /**
@@ -57,14 +71,69 @@ public class Train extends TransportObject {
      * @param y the amount of movement in the Y direction
      */
     @Override
-    public void move(int x, int y) {
+    public void move(double x, double y) {
         super.move(x, y);
         for(Wagon w : wagons){
             w.move(x,y);
         }
     }
 
-    public boolean getDiection(){
+    /**
+     * Moves the train & all it's wagons TO a coordinate
+     * @param x the X coordinate
+     * @param y the Y coordinate
+     */
+    @Override
+    public void moveTo(double x, double y){
+        super.moveTo(x, y);
+        for(Wagon w : wagons){
+            w.moveTo(x, y);
+        }
+
+
+    }
+
+    /**
+     * Calculates the directional vector the train will follow in between currentStation & nextStation
+     */
+    public void calculateVector(){
+        double res = 0;
+
+        double nextX,nextY;
+        double a;
+
+        Coordinates nextStCo = this.getNextStation().getCo();
+        Coordinates trainCo= this.getCo();
+        res = (nextStCo.getY() - trainCo.getY() )/(nextStCo.getX() - trainCo.getX());
+
+        double diff = this.currentStation.getCo().getX() - this.nextStation.getCo().getX();
+
+        double distance = this.currentStation.getCo().distance(this.nextStation.getCo());
+        this.speedX = distance/diff;
+
+        this.needNewVector = false;
+        this.vector = res;
+    }
+
+    /**
+     * Loads passengers from the current station TODO
+     */
+    public void load(){
+
+    }
+
+    /**
+     * Unloads passengers at the current station TODO
+     */
+    public void unload(){
+
+    }
+
+    public void changeDirection(){
+        this.direction = !this.direction;
+    }
+
+    public boolean getDirection(){
         return direction;
     }
 
@@ -72,4 +141,33 @@ public class Train extends TransportObject {
         return nextStation;
     }
 
+    public void setNextStation(Station nextStation) {
+        this.nextStation = nextStation;
+        this.needNewVector = true;
+    }
+
+    public Station getCurrentStation() {
+        return currentStation;
+    }
+
+    public void setCurrentStation(Station currentStation) {
+        this.currentStation = currentStation;
+        this.needNewVector = true;
+    }
+
+    public boolean getNeedNewVector(){
+        return this.needNewVector;
+    }
+
+    public double getSpeedX() {
+        return speedX;
+    }
+
+    public void setSpeedX(double speedX) {
+        this.speedX = speedX;
+    }
+
+    public double getVector(){
+        return this.vector;
+    }
 }
