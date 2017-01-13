@@ -64,6 +64,10 @@ public class MetroLine extends Line{
 
     }
 
+    public Color getColor(){
+        return color;
+    }
+
 
 
 }

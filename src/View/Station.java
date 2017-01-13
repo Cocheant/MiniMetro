@@ -1,26 +1,15 @@
 
 package View;
 
-import Controller.GameController;
-import Model.*;
-import com.sun.prism.Image;
+
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.input.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Polygon;
-
-import javafx.scene.Group;
-
 import javafx.scene.shape.Shape;
-
 import java.util.ArrayList;
-
-import static javafx.scene.input.DragEvent.DRAG_ENTERED;
 
 
 /**

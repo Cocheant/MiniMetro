@@ -51,6 +51,7 @@ public class View implements Runnable {
     static private ArrayList<Station> stations;
 
     ArrayList<MetroLine> lines;
+    ArrayList<Train> trains ;
 
 
     private double widthWindow = 1024;
@@ -83,14 +84,7 @@ public class View implements Runnable {
 
     boolean running = true;
 
-    EventHandler<MouseEvent> deleteLineHandler = new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent event) {
-            if((selected == red)||(selected == green)||(selected == blue) ) {
-                deleteElement(event.getSource());
-            }
-            //controller.deleteLine(event.getSource());
-        }
-    };
+
 
 
     public View(GameController controller, double width, double height, Group root, Stage primaryStage ){
@@ -102,7 +96,7 @@ public class View implements Runnable {
         this.primaryStage = primaryStage;
         this.stations = new ArrayList<Station>();
         lines = new ArrayList<MetroLine>();
-
+        trains = new ArrayList<Train>();
         trainHud.setColor(Color.DARKGREY);
         Hud.setTranslateX(widthWindow/2 - Hud.getBoundsInParent().getMaxX()/2);
         Hud.setTranslateY(heightWindow - Hud.getBoundsInParent().getMaxY() * 2);
@@ -175,9 +169,6 @@ public class View implements Runnable {
 
             }
         });*/
-
-
-
 
 
         root.getChildren().addAll( canvas, Hud,clock);
@@ -352,8 +343,29 @@ public class View implements Runnable {
     }
 
     public void printLine(Station first, Station second, Color color){
-        MetroLine ml = new MetroLine(first.getCenterX(),first.getCenterY(),second.getCenterX(),second.getCenterY(),color);
-        ml.setOnMouseClicked(deleteLineHandler);
+
+        final MetroLine ml = new MetroLine(first.getCenterX(),first.getCenterY(),second.getCenterX(),second.getCenterY(),color);
+
+        EventHandler<MouseEvent> LineHandler = new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                if((selected == red)||(selected == green)||(selected == blue) ) {
+                    deleteElement(event.getSource());
+
+                }
+                else if((selected == grey)){
+                    Train newTrain = new Train(ml.getStartX(),ml.getStartY(),15);
+                    addTrainToStation(newTrain,ml);
+                    newTrain.setColor(ml.getColor());
+                    trains.add(newTrain);
+                    addElement(newTrain);
+
+                }
+                //controller.deleteLine(event.getSource());
+            }
+        };
+
+        ml.setOnMouseClicked(LineHandler);
+
         addElement(ml);
         lines.add(ml);
     }
@@ -364,6 +376,10 @@ public class View implements Runnable {
 
     public static Color getselected() {
         return selected;
+    }
+
+    private void addTrainToStation(Train t, Line l){
+
     }
 
     public static void addStationToLine(double x,double y, Shape shape){
