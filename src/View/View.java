@@ -368,6 +368,7 @@ public class View implements Runnable {
 
         addElement(ml);
         lines.add(ml);
+
     }
 
     private void deleteLine(MetroLine ml){

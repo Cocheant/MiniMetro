@@ -7,20 +7,10 @@ import Model.Game;
 import Model.Passenger;
 import Model.Shape;
 import Model.StationGenerator;
-import Model.*;
+import View.Train;
 import View.*;
 import View.Clock;
 import View.Station;
-import javafx.animation.PathTransition;
-import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import View.View;
 import View.Cross;
 import View.Diamond;
@@ -36,6 +26,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static Model.Shape.Triangle;
 
@@ -170,6 +161,40 @@ public class GameController implements Runnable {
                     }
                 }
             }
+
+    }
+
+    public void addTrainToLine(Train train, MetroLine line){
+
+        Model.Line correspondingline = new Model.Line();
+
+        int i = 0;
+
+        for(Model.Line l : game.getLines()){
+            i++;
+            if(l.getCol() == line.getColor()){
+                correspondingline = l;
+            }
+        }
+
+
+
+        Model.Station trainStation = game.nearestStationOnLine(correspondingline,new Coordinates(train.getCenterX(),train.getCenterY()));
+
+
+        Model.Station nextStation = null;
+
+        Iterator<Model.Station> it = correspondingline.getStops().iterator();
+
+        while(!(it.equals(trainStation)&&(it.hasNext()))){
+                it.next();
+        }
+        if(it.hasNext()){
+            nextStation = it.next();
+        }
+
+        Model.Train modelTrain = new Model.Train(new Coordinates(train.getCenterX(),train.getCenterY()),i,true,nextStation);
+        correspondingline.addTrain(modelTrain);
 
     }
 }

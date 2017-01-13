@@ -139,6 +139,21 @@ public class Game implements Runnable {
 
     }
 
+    public Station getStationByCoord(Coordinates co){
+
+        for(Station s : stations){
+            if(s.getCo() == co){
+                return s;
+            }
+
+        }
+        return null;
+    }
+
+    public ArrayList<Line> getLines() {
+        return lines;
+    }
+
     /**
      * Creates a new station
      * @param station the station to be added.
@@ -252,7 +267,7 @@ public class Game implements Runnable {
         if(countTrains < availableTrains){
             countTrains ++;
             int id = countTrains;
-            Coordinates newCo = nearestStationOnLine(l, co);
+            Coordinates newCo = nearestCoordinatesOnLine(l, co);
             l.addTrain(new Train(co, id, true));
         }else{
             throw new Exception("No available train");
@@ -281,7 +296,7 @@ public class Game implements Runnable {
      * @param co the start coordinates
      * @return the coordinates of the nearest station
      */
-    private Coordinates nearestStationOnLine(Line l, Coordinates co){
+    public Coordinates nearestCoordinatesOnLine(Line l, Coordinates co){
         Coordinates res = null;
         Double distance = 1000.0;
         ArrayList<Station> stations = l.getStops();
@@ -290,6 +305,22 @@ public class Game implements Runnable {
             if(s.getCo().distance(co) < distance){
                 distance = s.getCo().distance(co);
                 res = s.getCo();
+            }
+        }
+        return res;
+    }
+
+    public Station nearestStationOnLine(Line l, Coordinates co){
+        //Coordinates res = null;
+        Station res = null;
+        Double distance = 1000.0;
+        ArrayList<Station> stations = l.getStops();
+
+        for(Station s : stations){
+            if(s.getCo().distance(co) < distance){
+                distance = s.getCo().distance(co);
+                res = s;
+                //res = s.getCo();
             }
         }
         return res;
