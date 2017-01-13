@@ -40,6 +40,7 @@ public class Station extends PassengerContainer {
     }
 
     public void addPassenger(Passenger p) throws Exception {
+
         passengers.add(p);
 
         if(capacity<passengers.size()){

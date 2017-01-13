@@ -29,6 +29,7 @@ public class TrainAnimator extends Thread {
 
 
         for(Line l : lines) {
+
                 if (!l.getTrains().isEmpty()){
                 for (Train t : l.getTrains()) {
 

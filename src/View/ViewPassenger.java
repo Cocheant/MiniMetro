@@ -8,9 +8,19 @@ import javafx.scene.paint.Color;
  */
 public class ViewPassenger<T extends Shape> {
 
+    double xCenter,yCenter;
+
     T t;
+
     public T getType(){ return this.t;}
     public void setType(T t){ this.t = t;}
+
+    public double getCenterX(){
+        return xCenter;
+    }
+    public double getCenterY(){
+        return yCenter;
+    }
 
     private int id;
 
@@ -20,6 +30,9 @@ public class ViewPassenger<T extends Shape> {
         this.t.setFill(Color.TRANSPARENT);
         this.t.setStroke(Color.BLACK);
         this.t.setStrokeWidth(1);
+
+        xCenter = (t.getLayoutBounds().getMaxX() + t.getLayoutBounds().getMinX())/2;
+        yCenter = (t.getLayoutBounds().getMaxY() + t.getLayoutBounds().getMinY())/2;
     }
 
 }

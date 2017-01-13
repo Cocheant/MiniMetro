@@ -15,7 +15,7 @@ public class PassengerGenerator extends Thread {
         this.running = running;
     }
 
-    private int passengerRate = 100;
+    private int passengerRate = 1000;
 
     /**
      * Constructor by initialization
@@ -49,6 +49,10 @@ public class PassengerGenerator extends Thread {
      */
     public Passenger createPassenger(){
         return (new Passenger(Shape.randomShape()));
+    }
+
+    public void exitLoop(){
+        running = false;
     }
 
 }
