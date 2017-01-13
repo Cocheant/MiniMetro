@@ -40,4 +40,6 @@ public abstract class TransportObject extends PassengerContainer {
         this.co.setX(x);
         this.co.setY(y);
     }
+
+
 }

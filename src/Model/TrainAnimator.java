@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.GameController;
 import View.View;
 import com.sun.javafx.collections.ArrayListenerHelper;
 import sun.plugin2.message.CookieOpMessage;
@@ -12,13 +13,13 @@ import java.util.Iterator;
  */
 public class TrainAnimator extends Thread {
 
-    ArrayList<Line> lines;
-    ArrayList<Train> trains;
+    private ArrayList<Line> lines;
+    private GameController controller;
 
 
-    public TrainAnimator(ArrayList<Line> lines){
+    public TrainAnimator(ArrayList<Line> lines, GameController controller){
         this.lines = lines;
-        this.trains = trains;
+        this.controller = controller;
 
     }
 
@@ -51,25 +52,31 @@ public class TrainAnimator extends Thread {
                     Coordinates co = new Coordinates(nextX, nextY);
                     if(co.equals(t.getNextStation())){
                         Iterator<Station> it = stops.iterator();
+                        Station temp = null;
 
-                        while(!(it.equals(t.getNextStation()))){
-                            it.next();
+                        while(!(it.equals(t.getNextStation())) && it.hasNext()){
+                            temp = it.next();
                         }
 
-                        if(it.hasNext()){
-                            Station temp = it.next();
-                            t.setCurrentStation(t.getNextStation());
-                            t.setNextStation(temp);
+                        if(temp.equals(t.getNextStation())){
+                            if(it.hasNext()){
+                                temp = it.next();
+                                t.setCurrentStation(t.getNextStation());
+                                t.setNextStation(temp);
+                            }else{
+                                temp = t.getCurrentStation();
+                                t.setCurrentStation(t.getNextStation());
+                                t.setNextStation(temp);
+                                t.changeDirection();
+
+                            }
                         }else{
-                            Station temp = t.getCurrentStation();
-                            t.setCurrentStation(t.getNextStation());
-                            t.setNextStation(temp);
-                            t.changeDirection();
-
+                            //ERREUR
                         }
 
-                        t.unload();
-                        t.load();
+
+                        unload(t);
+                        load(t);
 
 
                     }
@@ -82,5 +89,36 @@ public class TrainAnimator extends Thread {
     }
 
 
+    public void load(Train t){
+
+
+    }
+
+    public void unload(Train t){
+        Station s = t.getCurrentStation();
+        for(Passenger p : t.getPassengers()){
+            if(unloadPassenger(s, p)){
+                t.removePassenger(p);
+                this.controller.removePassengerFromTrain(t,p);
+            }
+        }
+        for(Wagon w : t.getWagons()){
+            for(Passenger p : w.getPassengers()){
+                if(unloadPassenger(s, p)){
+                    w.removePassenger(p);
+                    this.controller.removePassengerFromTrain(w,p);
+                }
+            }
+        }
+
+    }
+
+    public boolean unloadPassenger(Station s, Passenger p){
+        boolean res = false;
+        if(s.getShape().equals(p.getSh())){
+            res= true;
+        }
+        return res;
+    }
 
 }

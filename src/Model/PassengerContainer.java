@@ -12,6 +12,10 @@ public abstract class PassengerContainer {
 
     protected ArrayList<Passenger> passengers;
 
+    public ArrayList<Passenger> getPassengers(){
+        return passengers;
+    }
+
     /**
      * Default constructor
      */
@@ -33,6 +37,9 @@ public abstract class PassengerContainer {
     }
 
     public abstract void addPassenger(Passenger p) throws Exception;
+    public void removePassenger(Passenger p){
+        this.passengers.remove(p);
+    }
 
     public Coordinates getCo(){
         return co;

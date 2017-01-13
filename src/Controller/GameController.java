@@ -172,5 +172,14 @@ public class GameController implements Runnable {
             }
 
     }
+
+    /**
+     * TODO
+     * @param t
+     * @param p
+     */
+    public void removePassengerFromTrain(Model.TransportObject t, Passenger p){
+
+    }
 }
 
