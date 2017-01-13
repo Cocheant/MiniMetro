@@ -109,6 +109,8 @@ public class Game implements Runnable {
         cl.start();
         stationGenerator.start();
         passengerGenerator.start();
+        trainAnimator.start();
+
         Station triangleStation = new Station(new Coordinates(400,400),Shape.Triangle);
         addStation(triangleStation);
         controller.addViewStation(triangleStation);
