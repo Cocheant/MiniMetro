@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class Game implements Runnable {
 
-
     private Clock cl;
 
     public Clock getCl() {
@@ -33,7 +32,6 @@ public class Game implements Runnable {
     final int heightWindow = 800;
 
     final int stationSize = 30;
-
 
     private ArrayList<Station> stations;
 
@@ -129,12 +127,17 @@ public class Game implements Runnable {
 
     }
 
-    /**
-     * TODO
-     */
-    /*public void refreshDisplay(){
-        this.view.refreshDisplay();
-    }*/
+    public void onClose(){
+
+        stationGenerator.interrupt();
+
+        stationGenerator.exitLoop();
+
+        passengerGenerator.interrupt();
+
+        passengerGenerator.exitLoop();
+
+    }
 
     /**
      * Creates a new station
@@ -148,16 +151,19 @@ public class Game implements Runnable {
      * Adds a passenger to a random station
      * @param p the passenger to add
      */
-     public void randomStationAdd(Passenger p){
-        int randomNum = rand.nextInt(stations.size());
-        Station s = this.stations.get(randomNum);
-        try{
+     public void randomStationAdd(Passenger p) {
+
+         int randomNum = rand.nextInt(stations.size());
+         Station s = this.stations.get(randomNum);
+
+         try{
             s.addPassenger(p);
-        }catch (Exception e){
+         }catch (Exception e){
             // TODO : START FILLED STATION TIMER
-        }finally {
-            controller.addViewPassengerToStation(p, s);
-        }
+         } //finally {
+
+         controller.addViewPassengerToStation(p, s);
+
 
     }
 
@@ -345,7 +351,6 @@ public class Game implements Runnable {
         }
 
     }
-
 
 
 }

@@ -42,7 +42,6 @@ import static Model.Shape.Triangle;
 
 public class GameController implements Runnable {
 
-
     final double stationSize = 15 ;
 
     private Game game;
@@ -67,7 +66,9 @@ public class GameController implements Runnable {
 
     public void addViewStation(Model.Station station){
 
-        view.addStation(toViewStation(station));
+        synchronized (View.class) {
+            view.addStation(toViewStation(station));
+        }
 
     }
 
@@ -80,16 +81,19 @@ public class GameController implements Runnable {
 
         Station firstView = toViewStation(first);
         Station secondView = toViewStation(second);
-
-        view.printLine(firstView,secondView,color);
+        synchronized (View.class) {
+            view.printLine(firstView, secondView, color);
+        }
     }
 
     public void updateClock(){
+
         Model.Clock mCl = this.game.getCl();
 
-        Clock vCl = this.view.getClock();
-
-        vCl.update(mCl.getHours(), mCl.getDay());
+        synchronized (View.class) {
+            Clock vCl = this.view.getClock();
+            vCl.update(mCl.getHours(), mCl.getDay());
+        }
     }
 
     private Station toViewStation (Model.Station station){
@@ -154,15 +158,19 @@ public class GameController implements Runnable {
         }
 
         Coordinates co = s.getCo();
-
-        if(view.getStations()!= null){
-            for(Station st : view.getStations()){
-                Coordinates co2 = new Coordinates(st.getCenterX(), st.getCenterY());
-                if(co.equals(co2)){
-                    st.addPassenger(pa);
+            synchronized (View.class) {
+                if (view.getStations() != null) {
+                    for (Station st : view.getStations()) {
+                        if (st != null) {
+                            Coordinates co2 = new Coordinates(st.getCenterX(), st.getCenterY());
+                            if (co.equals(co2)) {
+                                st.addPassenger(pa);
+                            }
+                        }
+                    }
                 }
             }
-        }
+
     }
 }
 

@@ -43,10 +43,9 @@ public class Station<T extends Shape> {
     private ArrayList<ViewPassenger> passengers;
 
 
-    EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>() {
-
+    EventHandler<DragEvent> dragHandler = new EventHandler<DragEvent>()
+    {
         public void handle(final DragEvent event) {
-
            if(event.getEventType() == DragEvent.DRAG_ENTERED) {
                System.out.println("DRAG_ENTERED");
            }
@@ -111,7 +110,6 @@ public class Station<T extends Shape> {
 
     EventHandler<MouseEvent> mouseHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-
             System.out.println("onDragDetected");
             Dragboard db = t.startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();
@@ -169,8 +167,9 @@ public class Station<T extends Shape> {
             shape = Model.Shape.Lozenge;
         }
 
-
         this.passengers = new ArrayList<ViewPassenger>();
+        group.setTranslateY(this.yCenter + 20);
+        group.setTranslateX(this.xCenter);
     }
 
 
@@ -191,17 +190,31 @@ public class Station<T extends Shape> {
     }
 
     public void addPassenger(final ViewPassenger p){
+
+        //p.getType().setTranslateX(5);
         this.passengers.add(p);
-        Platform.runLater(new Runnable() {
-            public void run() {
-                group.getChildren().add(p.getType());
-            }
-        });
+
+
+
+        p.getType().setTranslateX(this.xCenter + passengers.size() * 10);
+        p.getType().setTranslateY(this.yCenter + 20);
+        System.out.println(passengers.size());
+
+        //group.getChildren().add(p.getType());
+        synchronized (View.class) {
+            Platform.runLater(new Runnable() {
+                public void run() {
+                    View.addElement(p.getType());
+                }
+            });
+        }
+
     }
 
     public void removePassenger(ViewPassenger p){
+
         this.passengers.remove(p);
-        this.group.getChildren().clear();
+        this.group.getChildren().remove(p.getType());
 
         for(ViewPassenger temp : this.passengers){
             this.group.getChildren().add(temp.getType());

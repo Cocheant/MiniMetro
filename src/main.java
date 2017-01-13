@@ -25,8 +25,6 @@ public class main extends Application {
     private final double heightWindow = 600.0;
     private final double stationSize = 15 ;
 
-    StationGenerator stationGenerator;
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -34,11 +32,11 @@ public class main extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        GameController controller = new GameController();
+        final GameController controller = new GameController();
 
-        Game game = new Game(controller);
+        final Game game = new Game(controller);
         controller.setGame(game);
-        View view = new View(controller, widthWindow, heightWindow, root, primaryStage);
+        final View view = new View(controller, widthWindow, heightWindow, root, primaryStage);
         controller.setView(view);
 
         game.run();
@@ -48,8 +46,11 @@ public class main extends Application {
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent event) {
 
+
                 //stationGenerator.exitLoop();
                 //stationGenerator.interrupt();
+
+                game.onClose();
                 Platform.exit();
 
             }

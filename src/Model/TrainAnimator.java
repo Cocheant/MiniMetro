@@ -13,10 +13,13 @@ import java.util.Iterator;
 public class TrainAnimator extends Thread {
 
     ArrayList<Line> lines;
+    ArrayList<Train> trains;
 
 
     public TrainAnimator(ArrayList<Line> lines){
         this.lines = lines;
+        this.trains = trains;
+
     }
 
     public void run(){
