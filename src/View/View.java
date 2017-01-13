@@ -36,7 +36,7 @@ public class View implements Runnable {
 
     private static GameController controller;
 
-    private static Color selectedLine;
+    private static Color selected;
 
     private Clock clock = new Clock();
 
@@ -62,27 +62,32 @@ public class View implements Runnable {
     Color red = Color.TOMATO;
     Color blue = Color.DEEPSKYBLUE;
     Color green = Color.LIMEGREEN;
+    Color grey = Color.DARKGREY;
 
     Stage primaryStage;
 
     //(widthWindow /2) - 6 *radiusStation ,heightWindow - 4 * radiusStation ,
 
+    final Train trainHud = new Train(radiusStation * 6 + 40,0,20 );
 
 
-    final Circle redStation = new Circle(0,0,radiusStation,red);
-    final Circle blueStation = new Circle(radiusStation *3 , 0, radiusStation,blue);
-    final Circle greenStation = new Circle(radiusStation *6 , 0, radiusStation,green);
+    final Circle redLine = new Circle(0,0,radiusStation,red);
+    final Circle blueLine = new Circle(radiusStation *3 , 0, radiusStation,blue);
+    final Circle greenLine = new Circle(radiusStation *6 , 0, radiusStation,green);
 
 
 
-    Group stationsHud = new Group(redStation,blueStation,greenStation);
+    Group Hud = new Group(redLine,blueLine,greenLine, trainHud);
+
 
 
     boolean running = true;
 
     EventHandler<MouseEvent> deleteLineHandler = new EventHandler<MouseEvent>() {
         public void handle(MouseEvent event) {
-            deleteElement(event.getSource());
+            if((selected == red)||(selected == green)||(selected == blue) ) {
+                deleteElement(event.getSource());
+            }
             //controller.deleteLine(event.getSource());
         }
     };
@@ -98,8 +103,10 @@ public class View implements Runnable {
         this.stations = new ArrayList<Station>();
         lines = new ArrayList<MetroLine>();
 
-        stationsHud.setTranslateX(widthWindow/2 - stationsHud.getBoundsInParent().getMaxX()/2);
-        stationsHud.setTranslateY(heightWindow - stationsHud.getBoundsInParent().getMaxY() * 2);
+        trainHud.setColor(Color.DARKGREY);
+        Hud.setTranslateX(widthWindow/2 - Hud.getBoundsInParent().getMaxX()/2);
+        Hud.setTranslateY(heightWindow - Hud.getBoundsInParent().getMaxY() * 2);
+
 
 
 
@@ -129,18 +136,6 @@ public class View implements Runnable {
 
         //stations = new ArrayList<Station>();
 
-        final Station<EquilateralTriangle> triangleStation = new Station(new EquilateralTriangle(400,400 , stationSize));
-        stations.add(triangleStation);
-
-        final Station<Circle> circleStation = new Station(new Circle(randCoord().getX(),randCoord().getY() , stationSize/2));
-        stations.add(circleStation);
-
-        final Station<Square> squareStation = new Station(new Square(randCoord().getX(),randCoord().getY() , stationSize));
-        stations.add(squareStation);
-
-
-        triangleStation.getType().toBack();
-        circleStation.getType().toBack();
 
         /*final Train train = new Train(triangleStation.getCenterX(),triangleStation.getCenterY(),15);
         train.setColor(Color.BLUE);
@@ -185,7 +180,7 @@ public class View implements Runnable {
 
 
 
-        root.getChildren().addAll( canvas, stationsHud,clock,triangleStation.getType(), circleStation.getType(), squareStation.getType());
+        root.getChildren().addAll( canvas, Hud,clock);
 
         scene = new Scene(root, widthWindow, heightWindow);
         primaryStage.setTitle("Mini Metro!");
@@ -198,7 +193,7 @@ public class View implements Runnable {
         return stations;
     }
 
-    public static void addStation(Station s){
+    public void addStation(Station s){
         stations.add(s);
         addElement(s.getType());
     }
@@ -254,66 +249,98 @@ public class View implements Runnable {
 
     private void setEvents(){
 
-        redStation.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        redLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                if(selectedLine == red){
-                    selectedLine = Color.TRANSPARENT;
-                    redStation.setStroke(Color.TRANSPARENT);
+                if(selected == red){
+                    selected = null;
+                    selected = Color.TRANSPARENT;
+                    redLine.setStroke(Color.TRANSPARENT);
                 }
-                else if(selectedLine == Color.TRANSPARENT){
-                    selectedLine = red;
-                    redStation.setStroke(Color.BLACK);
-                    redStation.setStrokeWidth(4);
+                else if(selected == Color.TRANSPARENT){
+                    selected = red;
+                    redLine.setStroke(Color.BLACK);
+                    redLine.setStrokeWidth(4);
                 }
                 else {
-                    selectedLine = red;
-                    redStation.setStroke(Color.BLACK);
-                    redStation.setStrokeWidth(4);
-                    blueStation.setStroke(Color.TRANSPARENT);
-                    greenStation.setStroke(Color.TRANSPARENT);
+                    selected = red;
+                    redLine.setStroke(Color.BLACK);
+                    redLine.setStrokeWidth(4);
+                    blueLine.setStroke(Color.TRANSPARENT);
+                    greenLine.setStroke(Color.TRANSPARENT);
+                    trainHud.setStroke(Color.TRANSPARENT);
                 }
 
             }
         });
 
-        blueStation.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        blueLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                if(selectedLine == blue){
-                    selectedLine = Color.TRANSPARENT;
-                    blueStation.setStroke(Color.TRANSPARENT);
+                if(selected == blue){
+                    selected = null;
+                    selected = Color.TRANSPARENT;
+                    blueLine.setStroke(Color.TRANSPARENT);
                 }
-                else if(selectedLine == Color.TRANSPARENT){
-                    selectedLine = blue;
-                    blueStation.setStroke(Color.BLACK);
-                    blueStation.setStrokeWidth(4);
+                else if(selected == Color.TRANSPARENT){
+                    selected = blue;
+                    blueLine.setStroke(Color.BLACK);
+                    blueLine.setStrokeWidth(4);
                 }
                 else {
-                    selectedLine = blue;
-                    blueStation.setStroke(Color.BLACK);
-                    blueStation.setStrokeWidth(4);
-                    redStation.setStroke(Color.TRANSPARENT);
-                    greenStation.setStroke(Color.TRANSPARENT);
+                    selected = blue;
+                    blueLine.setStroke(Color.BLACK);
+                    blueLine.setStrokeWidth(4);
+                    redLine.setStroke(Color.TRANSPARENT);
+                    greenLine.setStroke(Color.TRANSPARENT);
+                    trainHud.setStroke(Color.TRANSPARENT);
                 }
             }
         });
 
-        greenStation.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        greenLine.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                if(selectedLine == green){
-                    selectedLine = Color.TRANSPARENT;
-                    greenStation.setStroke(Color.TRANSPARENT);
+                if(selected == green){
+                    selected = null;
+                    selected = Color.TRANSPARENT;
+                    greenLine.setStroke(Color.TRANSPARENT);
                 }
-                else if(selectedLine == Color.TRANSPARENT){
-                    selectedLine = green;
-                    greenStation.setStroke(Color.BLACK);
-                    greenStation.setStrokeWidth(4);
+                else if(selected == Color.TRANSPARENT){
+                    selected = green;
+                    greenLine.setStroke(Color.BLACK);
+                    greenLine.setStrokeWidth(4);
                 }
                 else {
-                    selectedLine = green;
-                    greenStation.setStroke(Color.BLACK);
-                    greenStation.setStrokeWidth(4);
-                    redStation.setStroke(Color.TRANSPARENT);
-                    blueStation.setStroke(Color.TRANSPARENT);
+                    selected = green;
+                    greenLine.setStroke(Color.BLACK);
+                    greenLine.setStrokeWidth(4);
+                    redLine.setStroke(Color.TRANSPARENT);
+                    blueLine.setStroke(Color.TRANSPARENT);
+                    trainHud.setStroke(Color.TRANSPARENT);
+                }
+            }
+        });
+
+        trainHud.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event) {
+                
+                if((selected != null)&&(selected!=grey)){
+                    greenLine.setStroke(Color.TRANSPARENT);
+                    redLine.setStroke(Color.TRANSPARENT);
+                    blueLine.setStroke(Color.TRANSPARENT);
+                    trainHud.setStroke(Color.BLACK);
+                    trainHud.setStrokeWidth(4);
+                    selected = grey;
+                }
+                else if(selected == grey){
+                    trainHud.setStroke(Color.TRANSPARENT);
+                    selected = null;
+                }
+                else {
+                    selected = grey;
+                    greenLine.setStroke(Color.TRANSPARENT);
+                    redLine.setStroke(Color.TRANSPARENT);
+                    blueLine.setStroke(Color.TRANSPARENT);
+                    trainHud.setStroke(Color.BLACK);
+                    trainHud.setStrokeWidth(4);
                 }
             }
         });
@@ -334,12 +361,14 @@ public class View implements Runnable {
         lines.remove(ml);
     }
 
-    public static Color getSelectedLine() {
-        return selectedLine;
+    public static Color getselected() {
+        return selected;
     }
 
     public static void addStationToLine(double x,double y, Shape shape){
-        controller.addStationToLine(new Coordinates(x,y), shape , selectedLine);
+        if((selected != null)&&(selected!=Color.GREY) ) {
+            controller.addStationToLine(new Coordinates(x, y), shape, selected);
+        }
     }
 
 

@@ -9,6 +9,8 @@ public class Train extends TransportObject {
 
     private boolean direction;
 
+    Station nextStation;
+
     /**
      * all the wagons attached to the end of the train
      */
@@ -22,6 +24,12 @@ public class Train extends TransportObject {
         direction = true;
     }
 
+    public Train(Station next){
+        super();
+        direction = true;
+        this.nextStation = next;
+    }
+
     /**
      * Initialising constructor
      * @param co the coordinates of the train
@@ -31,6 +39,13 @@ public class Train extends TransportObject {
         super(co, id);
         this.direction = direction;
     }
+
+    public Train(Coordinates co, int id, boolean direction, Station next){
+        super(co, id);
+        this.direction = direction;
+        this.nextStation = next;
+    }
+
 
     public void addWagon(Wagon wa){
         this.wagons.add(wa);
@@ -48,4 +63,13 @@ public class Train extends TransportObject {
             w.move(x,y);
         }
     }
+
+    public boolean getDiection(){
+        return direction;
+    }
+
+    public Station getNextStation(){
+        return nextStation;
+    }
+
 }
