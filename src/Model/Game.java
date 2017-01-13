@@ -59,6 +59,7 @@ public class Game implements Runnable {
 
     private StationGenerator stationGenerator;
     private PassengerGenerator passengerGenerator;
+    private TrainAnimator trainAnimator;
 
     Line blueLine ;
     Line redLine;
@@ -97,7 +98,7 @@ public class Game implements Runnable {
 
         stationGenerator = new StationGenerator(this,controller);
         passengerGenerator = new PassengerGenerator(this, controller);
-
+        trainAnimator = new TrainAnimator(this.lines);
 
     }
 
@@ -106,6 +107,8 @@ public class Game implements Runnable {
         cl.start();
         stationGenerator.start();
         passengerGenerator.start();
+        trainAnimator.start();
+
         Station triangleStation = new Station(new Coordinates(400,400),Shape.Triangle);
         addStation(triangleStation);
         controller.addViewStation(triangleStation);
