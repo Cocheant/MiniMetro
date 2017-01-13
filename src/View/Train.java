@@ -4,6 +4,8 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+import java.util.ArrayList;
+
 /**
  * Created by Toinecoch on 20/12/16.
  */
@@ -12,6 +14,12 @@ public class Train extends Polygon {
     private double xCenter,yCenter,length;
     private Color color;
     private Group wagons;
+
+    private ArrayList<Wagon> listWagons;
+    public ArrayList<Wagon> getListWagons(){ return this.listWagons;};
+
+    private ArrayList<ViewPassenger> passengers;
+    public ArrayList<ViewPassenger> getPassengers(){ return this.passengers;}
 
 
     public Train(double xCenter, double yCenter, double length){
@@ -27,7 +35,8 @@ public class Train extends Polygon {
         this.yCenter = yCenter;
         this.length = length;
         wagons = new Group(this);
-
+        this.passengers = new ArrayList<ViewPassenger>();
+        this.listWagons = new ArrayList<Wagon>();
     }
 
     public void setColor(Color color){
@@ -39,8 +48,17 @@ public class Train extends Polygon {
 
     public void addWagon(Wagon wagon){
 
+        this.listWagons.add(wagon);
         wagon.setColor(this.color);
         wagons.getChildren().add(wagon);
+
+    }
+
+    /**
+     * TODO
+     * @param p
+     */
+    public void removePassenger(ViewPassenger p){
 
     }
 

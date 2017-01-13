@@ -199,12 +199,12 @@ public class GameController implements Runnable {
     }
 
     /**
-     * TODO
-     * @param t
-     * @param p
+     * Removes a passenger from the view.
+     * @param p the passenger to remove
      */
-    public void removePassengerFromTrain(Model.TransportObject t, Passenger p){
-
+    public void removePassengerFromTrain(Passenger p){
+        int id = p.getId();
+        this.view.removePassengerFromViewByID(id);
     }
 }
 

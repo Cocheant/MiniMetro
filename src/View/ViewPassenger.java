@@ -23,6 +23,7 @@ public class ViewPassenger<T extends Shape> {
     }
 
     private int id;
+    public int getId(){ return this.id;}
 
     public ViewPassenger(T t, int id){
         this.t = t;
@@ -33,6 +34,10 @@ public class ViewPassenger<T extends Shape> {
 
         xCenter = (t.getLayoutBounds().getMaxX() + t.getLayoutBounds().getMinX())/2;
         yCenter = (t.getLayoutBounds().getMaxY() + t.getLayoutBounds().getMinY())/2;
+    }
+
+    public boolean equals(ViewPassenger vP){
+        return (this.id == vP.id);
     }
 
 }

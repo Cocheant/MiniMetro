@@ -99,14 +99,14 @@ public class TrainAnimator extends Thread {
         for(Passenger p : t.getPassengers()){
             if(unloadPassenger(s, p)){
                 t.removePassenger(p);
-                this.controller.removePassengerFromTrain(t,p);
+                this.controller.removePassengerFromTrain(p);
             }
         }
         for(Wagon w : t.getWagons()){
             for(Passenger p : w.getPassengers()){
                 if(unloadPassenger(s, p)){
                     w.removePassenger(p);
-                    this.controller.removePassengerFromTrain(w,p);
+                    this.controller.removePassengerFromTrain(p);
                 }
             }
         }

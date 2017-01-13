@@ -30,6 +30,7 @@ public class Station<T extends Shape> {
     Model.Shape shape;
 
     private ArrayList<ViewPassenger> passengers;
+    public ArrayList<ViewPassenger> getPassengers(){ return this.passengers;}
 
 
 

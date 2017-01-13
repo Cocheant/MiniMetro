@@ -98,7 +98,7 @@ public class Game implements Runnable {
 
         stationGenerator = new StationGenerator(this,controller);
         passengerGenerator = new PassengerGenerator(this, controller);
-        trainAnimator = new TrainAnimator(this.lines);
+        trainAnimator = new TrainAnimator(this.lines, this.controller);
 
     }
 
