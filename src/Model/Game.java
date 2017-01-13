@@ -1,7 +1,10 @@
 package Model;
 
 import Controller.GameController;
+import View.EquilateralTriangle;
+import View.Square;
 import javafx.scene.paint.*;
+import javafx.scene.shape.Circle;
 import sun.reflect.annotation.ExceptionProxy;
 
 import java.lang.reflect.Array;
@@ -92,11 +95,7 @@ public class Game implements Runnable {
         lines.add(redLine);
         lines.add(greenLine);
 
-        addStation(new Station(new Coordinates(10,10), Shape.Circle));
-        addStation(new Station(new Coordinates(20,20), Shape.Circle));
-        addStation(new Station(new Coordinates(30,30), Shape.Circle));
-
-        addStation(new Station(randomStationCoordinates(),Shape.Circle));
+        //addStation(new Station(randomStationCoordinates(),Shape.Circle));
 
         stationGenerator = new StationGenerator(this,controller);
         passengerGenerator = new PassengerGenerator(this, controller);
@@ -105,9 +104,22 @@ public class Game implements Runnable {
     }
 
     public void run() {
+
         cl.start();
         stationGenerator.start();
         passengerGenerator.start();
+        Station triangleStation = new Station(new Coordinates(400,400),Shape.Triangle);
+        addStation(triangleStation);
+        controller.addViewStation(triangleStation);
+
+        Station circleStation = new Station(new Coordinates(400, 600), Shape.Circle);
+        addStation(circleStation);
+        controller.addViewStation(circleStation);
+
+        Station squareStation = new Station(new Coordinates(200, 200), Shape.Circle);
+        addStation(squareStation);
+        controller.addViewStation(squareStation);
+
     }
 
     public void start(){
@@ -330,4 +342,7 @@ public class Game implements Runnable {
         }
 
     }
+
+
+
 }
