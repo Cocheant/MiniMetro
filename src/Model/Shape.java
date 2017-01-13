@@ -23,11 +23,6 @@ public enum Shape {
         this.number = number;
     }
 
-    /*static public Shape set(int i)
-    {
-        return vals[i % SIZE];
-    }*/
-
     private static List<Shape> vals = Collections.unmodifiableList(Arrays.asList(values()));
 
     private static final int SIZE = vals.size();

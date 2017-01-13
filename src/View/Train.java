@@ -18,7 +18,6 @@ public class Train extends Polygon {
 
         super(xCenter-(length/2),yCenter-(length/3),
                 xCenter+(length/2),yCenter-(length/3),
-                //xCenter+length,yCenter,
                 xCenter+(length/2),yCenter+(length/3),
                 xCenter-(length/2),yCenter+(length/3)
                 );

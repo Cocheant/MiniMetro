@@ -1,7 +1,6 @@
 
 package Controller;
 
-
 import Model.Coordinates;
 import Model.Game;
 import Model.Passenger;
@@ -65,6 +64,8 @@ public class GameController implements Runnable {
 
     public void addStationToLine(Coordinates co, Shape sh , Color selected){
 
+        System.out.println(sh);
+
         game.addStationToLine(new Model.Station(co, sh), selected);
     }
 
@@ -119,10 +120,6 @@ public class GameController implements Runnable {
         }
         return null;
     }
-
-    /*public deleteLine(Object object){
-        game.removeStationFromLine
-    }*/
 
     public void addViewPassengerToStation(Model.Passenger p, Model.Station s){
 

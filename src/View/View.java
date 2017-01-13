@@ -53,6 +53,10 @@ public class View implements Runnable {
     ArrayList<MetroLine> lines;
     ArrayList<Train> trains ;
 
+    static Path redPath = new Path();
+    static Path bluePath = new Path();
+    static Path greenPath = new Path();
+
 
     private double widthWindow = 1024;
     private double heightWindow = 600;
@@ -60,14 +64,13 @@ public class View implements Runnable {
     final double radiusStation = 15;
     double vitesseTrain = 0.13;
 
-    Color red = Color.TOMATO;
-    Color blue = Color.DEEPSKYBLUE;
-    Color green = Color.LIMEGREEN;
-    Color grey = Color.DARKGREY;
+    static Color red = Color.TOMATO;
+    static Color blue = Color.DEEPSKYBLUE;
+    static Color green = Color.LIMEGREEN;
+    static Color grey = Color.DARKGREY;
 
     Stage primaryStage;
 
-    //(widthWindow /2) - 6 *radiusStation ,heightWindow - 4 * radiusStation ,
 
     final Train trainHud = new Train(radiusStation * 6 + 40,0,20 );
 
@@ -75,7 +78,6 @@ public class View implements Runnable {
     final Circle redLine = new Circle(0,0,radiusStation,red);
     final Circle blueLine = new Circle(radiusStation *3 , 0, radiusStation,blue);
     final Circle greenLine = new Circle(radiusStation *6 , 0, radiusStation,green);
-
 
 
     Group Hud = new Group(redLine,blueLine,greenLine, trainHud);
@@ -98,11 +100,12 @@ public class View implements Runnable {
         lines = new ArrayList<MetroLine>();
         trains = new ArrayList<Train>();
         trainHud.setColor(Color.DARKGREY);
-        Hud.setTranslateX(widthWindow/2 - Hud.getBoundsInParent().getMaxX()/2);
+        Hud.setTranslateX(widthWindow - Hud.getBoundsInParent().getMaxX()/2);
         Hud.setTranslateY(heightWindow - Hud.getBoundsInParent().getMaxY() * 2);
 
-
-
+        redPath.setStroke(red);
+        bluePath.setStroke(blue);
+        greenPath.setStroke(green);
 
         setEvents();
 
@@ -121,57 +124,7 @@ public class View implements Runnable {
         clock = new Clock();
         clock.setPosition(widthWindow - 150, 5);
 
-
-
-
-        /*clock.setPosition(widthWindow - 150, 5);
-        clock.start();
-        */
-
-        //stations = new ArrayList<Station>();
-
-
-        /*final Train train = new Train(triangleStation.getCenterX(),triangleStation.getCenterY(),15);
-        train.setColor(Color.BLUE);
-
-        final Path path = new Path();
-        path.setStroke(Color.BLUE);
-        path.setStrokeWidth(2);
-        path.getElements().add(new MoveTo(triangleStation.getCenterX(),triangleStation.getCenterY()));
-        final PathTransition pathTransition = new PathTransition();
-        path.getElements().add(new LineTo(triangleStation.getCenterX(),triangleStation.getCenterY()));
-        path.getElements().add(new LineTo(circleStation.getCenterX(), circleStation.getCenterY()));
-        pathTransition.setDuration(Duration.millis(Math.sqrt((triangleStation.getCenterX() - circleStation.getCenterX())*(triangleStation.getCenterX() - circleStation.getCenterX())
-                +(triangleStation.getCenterY() - circleStation.getCenterY()) *(triangleStation.getCenterY() - circleStation.getCenterY()))/ vitesseTrain));
-
-        pathTransition.setNode(train);
-        pathTransition.setPath(path);
-        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        pathTransition.setAutoReverse(false);
-        pathTransition.play();
-
-        final Path path2 = new Path();
-
-
-        path2.getElements().add(new MoveTo(circleStation.getCenterX(),circleStation.getCenterY()));
-        path2.getElements().add(new LineTo(circleStation.getCenterX(), circleStation.getCenterY()));
-        path2.getElements().add(new LineTo(squareStation.getCenterX(), squareStation.getCenterY()));
-
-
-        pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                pathTransition.setNode(train);
-                pathTransition.setPath(path2);
-                pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-                //pathTransition.setCycleCount(Timeline.INDEFINITE);
-                //pathTransition.setAutoReverse(true);
-                pathTransition.play();
-
-            }
-        });*/
-
-
-        root.getChildren().addAll( canvas, Hud,clock);
+        root.getChildren().addAll( canvas, Hud,clock,redPath,bluePath,greenPath);
 
         scene = new Scene(root, widthWindow, heightWindow);
         primaryStage.setTitle("Mini Metro!");
@@ -353,14 +306,56 @@ public class View implements Runnable {
 
                 }
                 else if((selected == grey)){
+
                     Train newTrain = new Train(ml.getStartX(),ml.getStartY(),15);
                     addTrainToStation(newTrain,ml);
                     newTrain.setColor(ml.getColor());
                     trains.add(newTrain);
                     addElement(newTrain);
 
+
+
+                    if(ml.getColor() == red){
+
+                        System.out.println("hello");
+                        PathTransition pathTransition;
+                        pathTransition = new PathTransition(Duration.millis(2000), redPath,newTrain);
+                        pathTransition.setNode(newTrain);
+                        pathTransition.setPath(redPath);
+                        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                        pathTransition.setCycleCount(Timeline.INDEFINITE);
+                        pathTransition.setAutoReverse(true);
+
+                        pathTransition.play();
+
+                    }
+                    else if(ml.getColor() == green){
+
+
+                        PathTransition pathTransition;
+                        pathTransition = new PathTransition(Duration.millis(2000), greenPath,newTrain);
+                        pathTransition.setNode(newTrain);
+                        pathTransition.setPath(greenPath);
+                        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                        pathTransition.setCycleCount(Timeline.INDEFINITE);
+                        pathTransition.setAutoReverse(true);
+                        pathTransition.play();
+                    }
+                    else if(ml.getColor() == blue) {
+                        PathTransition pathTransition;
+                        pathTransition = new PathTransition(Duration.millis(2000), bluePath,newTrain);
+                        pathTransition.setNode(newTrain);
+                        pathTransition.setPath(bluePath);
+                        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+                        pathTransition.setCycleCount(Timeline.INDEFINITE);
+                        pathTransition.setAutoReverse(true);
+                        pathTransition.play();
+
+                    }
+
+
+
                 }
-                //controller.deleteLine(event.getSource());
             }
         };
 
@@ -384,10 +379,40 @@ public class View implements Runnable {
     }
 
     public static void addStationToLine(double x,double y, Shape shape){
+
         if((selected != null)&&(selected!=Color.GREY) ) {
+            //System.out.println(shape);
             controller.addStationToLine(new Coordinates(x, y), shape, selected);
+
+            if(selected == red){
+                if(redPath.getElements().size()==0)
+                    redPath.getElements().add(new MoveTo(x,y));
+
+                redPath.getElements().add(new LineTo(x,y));
+
+            }
+            else if(selected == green){
+                if(greenPath.getElements().size()==0)
+                    greenPath.getElements().add(new MoveTo(x,y));
+
+
+                greenPath.getElements().add(new LineTo(x,y));
+            }
+            else if(selected == blue) {
+                if(bluePath.getElements().size()==0)
+                    bluePath.getElements().add(new MoveTo(x,y));
+
+                bluePath.getElements().add(new LineTo(x,y));
+            }
+
+
+
         }
     }
+
+
+
+
 
 
 

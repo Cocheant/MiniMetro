@@ -45,6 +45,7 @@ public class StationGenerator extends Thread{
 
             final Model.Station s = RandomStation();
             stations.add(s);
+            game.addStation(s);
             gameController.addViewStation(s);
 
             try {

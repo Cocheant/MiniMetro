@@ -9,6 +9,9 @@ import java.util.Iterator;
 
 /**
  * Created by Toinecoch on 13/1/17.
+ *
+ * Not used in the final version
+ *
  */
 public class TrainAnimator extends Thread {
 
@@ -23,6 +26,7 @@ public class TrainAnimator extends Thread {
     }
 
     public void run(){
+
 
         try {
             Thread.sleep(50);
@@ -45,9 +49,7 @@ public class TrainAnimator extends Thread {
 
                     t.moveTo(nextX, nextY);
 
-                    /**
-                     * IF THE TRAIN ARRIVES AT A STATION, CHECKS FOR THE NEXT STATION & UNLOADS/LOADS PASSENGERS
-                     */
+
                     Coordinates co = new Coordinates(nextX, nextY);
                     if(co.equals(t.getNextStation())){
                         Iterator<Station> it = stops.iterator();

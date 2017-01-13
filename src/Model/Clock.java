@@ -11,6 +11,8 @@ public class Clock extends Thread {
 
     private int hours = 0;
 
+    private boolean running = true;
+
     public int getHours() {
         return hours;
     }
@@ -21,13 +23,12 @@ public class Clock extends Thread {
         return day;
     }
 
-    //private boolean running = true;
     private int millisSpeed = 1000;
 
     private GameController controller;
 
     public void run() {
-        while(true){
+        while(running){
             try{
                 Thread.sleep(millisSpeed);
             }catch (Exception e){
@@ -50,25 +51,13 @@ public class Clock extends Thread {
     }
 
     public Clock(GameController controller){
-        //super(""+0);
 
-        //this.setFont(new Font(30));
-
-
-        //this.textProperty().bind(task.messageProperty());
-
-        //clockThread = new Thread(task);
         this.controller = controller;
     }
 
     public Clock(int hours){
-        //super(""+hours);
         this.hours = hours;
 
-        //this.textProperty().bind(task.messageProperty());
-
-
-        //clockThread = new Thread(task);
         this.setDaemon(true);
     }
 
@@ -78,17 +67,19 @@ public class Clock extends Thread {
 
 
     public boolean status(){
-        //return clockThread.isAlive()&&this.textProperty().isBound();
         return true;
     }
 
     public void setPosition(double x, double y){
-        //this.setTranslateX(x);
-        //this.setTranslateY(y);
+
     }
 
     public void setSpeed(int millis){
         if(millis > 0 )  this.millisSpeed = millis;
+    }
+
+    public void exitLoop(){
+        running = false;
     }
 
 }

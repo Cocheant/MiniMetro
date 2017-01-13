@@ -3,8 +3,13 @@ package Model;
 import Controller.GameController;
 import View.EquilateralTriangle;
 import View.Square;
+import javafx.animation.PathTransition;
 import javafx.scene.paint.*;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.util.Duration;
 import sun.reflect.annotation.ExceptionProxy;
 
 import java.lang.reflect.Array;
@@ -61,6 +66,9 @@ public class Game implements Runnable {
     private PassengerGenerator passengerGenerator;
     private TrainAnimator trainAnimator;
 
+    private Path path;
+    private PathTransition pathTransition;
+
     Line blueLine ;
     Line redLine;
     Line greenLine;
@@ -91,10 +99,11 @@ public class Game implements Runnable {
         greenLine = new Line();
 
         lines.add(blueLine);
+        countLines ++;
         lines.add(redLine);
+        countLines ++;
         lines.add(greenLine);
-
-        //addStation(new Station(randomStationCoordinates(),Shape.Circle));
+        countLines ++;
 
         stationGenerator = new StationGenerator(this,controller);
         passengerGenerator = new PassengerGenerator(this, controller);
@@ -129,13 +138,17 @@ public class Game implements Runnable {
 
     public void onClose(){
 
+        stationGenerator.exitLoop();
+
         stationGenerator.interrupt();
 
-        stationGenerator.exitLoop();
+        passengerGenerator.exitLoop();
 
         passengerGenerator.interrupt();
 
-        passengerGenerator.exitLoop();
+        cl.exitLoop();
+
+        cl.interrupt();
 
     }
 
@@ -158,7 +171,7 @@ public class Game implements Runnable {
      * Creates a new station
      * @param station the station to be added.
      */
-    private void addStation(Station station){
+    public void addStation(Station station){
         this.stations.add(station);
     }
 
@@ -257,6 +270,8 @@ public class Game implements Runnable {
         }
         return misplaced;
     }
+
+
     /**
      * Adds a train to a specific line
      * @param l the line on which the train will run
@@ -311,7 +326,6 @@ public class Game implements Runnable {
     }
 
     public Station nearestStationOnLine(Line l, Coordinates co){
-        //Coordinates res = null;
         Station res = null;
         Double distance = 1000.0;
         ArrayList<Station> stations = l.getStops();
@@ -320,7 +334,6 @@ public class Game implements Runnable {
             if(s.getCo().distance(co) < distance){
                 distance = s.getCo().distance(co);
                 res = s;
-                //res = s.getCo();
             }
         }
         return res;
@@ -356,10 +369,13 @@ public class Game implements Runnable {
         if(color == Color.TOMATO){
 
             redLine.addStation(station);
+
             int Id = redLine.getId(station);
+
             if((redLine.getStopById(Id-1))!=null){
                 controller.addLineView((redLine.getStopById(Id-1)),station,color);
             }
+
         }
 
         else if(color == Color.DEEPSKYBLUE){

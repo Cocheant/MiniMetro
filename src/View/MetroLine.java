@@ -1,5 +1,6 @@
 package View;
 
+import javafx.animation.PathTransition;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Path;
@@ -13,8 +14,6 @@ public class MetroLine extends Line{
 
     private double xStart, xEnd, yStart, yEnd;
     private Color color;
-    private Path path;
-
 
 
     public MetroLine(){
@@ -47,7 +46,6 @@ public class MetroLine extends Line{
         yStart = StartY;
         xEnd = EndX;
         yEnd = EndY;
-        Object station;
 
         this.color = color;
 

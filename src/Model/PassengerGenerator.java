@@ -15,7 +15,7 @@ public class PassengerGenerator extends Thread {
         this.running = running;
     }
 
-    private int passengerRate = 1000;
+    private int passengerRate = 2000;
 
     /**
      * Constructor by initialization
