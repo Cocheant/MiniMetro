@@ -194,5 +194,14 @@ public class GameController implements Runnable {
         correspondingline.addTrain(modelTrain);
 
     }
+
+    /**
+     * Removes a passenger from the view.
+     * @param p the passenger to remove
+     */
+    public void removePassengerFromTrain(Passenger p){
+        int id = p.getId();
+        this.view.removePassengerFromViewByID(id);
+    }
 }
 

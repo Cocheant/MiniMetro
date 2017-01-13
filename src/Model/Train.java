@@ -22,6 +22,7 @@ public class Train extends TransportObject {
      * all the wagons attached to the end of the train
      */
     private ArrayList<Wagon> wagons;
+    public ArrayList<Wagon> getWagons(){ return this.wagons;}
 
     /**
      * Default Constructor
@@ -115,20 +116,6 @@ public class Train extends TransportObject {
         this.vector = res;
     }
 
-    /**
-     * Loads passengers from the current station TODO
-     */
-    public void load(){
-
-    }
-
-    /**
-     * Unloads passengers at the current station TODO
-     */
-    public void unload(){
-
-    }
-
     public void changeDirection(){
         this.direction = !this.direction;
     }
@@ -170,4 +157,5 @@ public class Train extends TransportObject {
     public double getVector(){
         return this.vector;
     }
+
 }

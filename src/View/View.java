@@ -1,10 +1,8 @@
 package View;
 
 import Controller.GameController;
-import Model.Coordinates;
-import Model.Game;
+import Model.*;
 import Model.Shape;
-import Model.StationGenerator;
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.animation.Timeline;
@@ -22,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -411,6 +410,33 @@ public class View implements Runnable {
     }
 
 
+    public void removePassengerFromViewByID(int id){
+        for(Station s : stations){
+            ArrayList<ViewPassenger> pass = s.getPassengers();
+            for(ViewPassenger vP : pass){
+                if(vP.getId() == id){
+                    s.removePassenger(vP);
+                }
+            }
+        }
+
+        for(Train t : this.trains){
+            for(ViewPassenger vP : t.getPassengers()){
+                if(vP.getId() == id){
+                    t.removePassenger(vP);
+                }
+            }
+
+            for(Wagon w : t.getListWagons()){
+                for(ViewPassenger vP : w.getPassengers()){
+                    if(vP.getId() == id){
+                        w.removePassenger(vP);
+                    }
+                }
+            }
+        }
+
+    }
 
 
 
